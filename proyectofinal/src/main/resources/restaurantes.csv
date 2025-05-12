@@ -1,0 +1,27 @@
+id,id_owner,name_restaurant,direction,phone,type,latitude,longitude
+id-1,user-1,Medea,"Rios Rosas, 45",910 81 97 71,FUSION,40.4425703,-3.6976294
+id-2,user-2,Enklima,"Ferraz, 36",911 166 991,OTHER,40.4261602,-3.7171611
+id-3,user-3,Sasha Boom,"Raimundo Fernandez Villaverde, 26",911 995 010,FUSION,40.4464414,-3.6956129
+id-4,user-1,Lakasa,"Plaza Descubridor Diego de Ordas, 1",915 338 715,OTHER,40.4408805,-3.7007791
+id-5,user-2,Ronda 14,"General Oraa, 25",914 11 17 30,FUSION,40.4363042,-3.6844844
+id-6,user-3,A barra,"Pinar, 15",910 210 061,OTHER,40.4386539,-3.6878292
+id-7,user-1,Cilindro,"Don Ramon de la Cruz, 83",910 66 33 56,FUSION,40.4287541,-3.6748719
+id-8,user-2,Cebo,"Carrera de San Jeronimo, 34",917 877 780,FUSION,40.4164051,-3.6985954
+id-9,user-3,Etimo,"Ayala, 27",913 75 98 83,OTHER,40.4278334,-3.6846048
+id-10,user-1,Olive Torrelodones,"Camino de Valladolid, 28 (Torrelodones)",918 59 14 39,OTHER,40.5763092,-3.9317619
+id-11,user-2,Raza 7,"Galeon, 27",917 47 45 67,OTHER,40.4572571,-3.5839829
+id-12,user-3,Medusa,"Barco, 27",910 226 057,FUSION,40.4224005,-3.702582
+id-13,user-1,El Filandon,"Carretera de El Pardo-Fuencarral, km 1,9",917 34 38 26,OTHER,40.42526,-3.69063
+id-14,user-2,Shalakabula,"Don Ramon de la Cruz, 72",918 280 043,OTHER,40.4286051,-3.6748495
+id-15,user-3,Bacira,"Castillo, 16",918 66 40 30,FUSION,40.42526,-3.69063
+id-16,user-1,Latasia,"Paseo de la Castellana, 115",915 559 333,FUSION,40.4568559,-3.6907533
+id-17,user-2,La Primera,"Gran Via, 1",910 520 620,OTHER,40.4191077,-3.6978657
+id-18,user-3,Cuatro de Ocho,"San Mateo, 21",914 47 42 25,OTHER,40.4261262,-3.6981877
+id-19,user-1,Alright,"Pedro Rico, 41",912 190 725,AMERICAN,40.4846861,-3.6964742
+id-20,user-2,Origen Taberna,"Juan Alvarez Mendizabal, 44",912 240 559,OTHER,40.4265674,-3.7163351
+id-21,user-3,Araldo,"Madrazo, 5",911 38 41 65,ITALIAN,40.4176169,-3.6980635
+id-22,user-1,Surtopia,"Nunez de Balboa, 106",915 63 03 64,OTHER,40.4353719,-3.6818311
+id-23,user-2,Membibre,"Guzman El Bueno, 40",915 43 31 48,OTHER,40.4349117,-3.7130004
+id-24,user-3,Ramses,"Plaza de la Independencia, 4",914 35 16 66,OTHER,40.4207805,-3.6891809
+id-25,user-1,Cannibal Raw Bar,"Almirante, 12",910 268 794,FUSION,40.4224409,-3.6942202
+id-26,user-2,Sr. Ito Lab,"Trafalgar, 7",918 61 61 26,OTHER,40.4312007,-3.7005577
