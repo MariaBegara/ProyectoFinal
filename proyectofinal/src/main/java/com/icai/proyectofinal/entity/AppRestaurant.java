@@ -19,6 +19,7 @@ public class AppRestaurant {
     @Column(nullable = false)
     private String name_restaurant;
 
+    //cambio lo de unique=true para pruebas
     @Column(nullable = false, unique = false)
     private String direction;
 
