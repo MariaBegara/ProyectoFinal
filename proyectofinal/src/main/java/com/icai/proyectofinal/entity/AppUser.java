@@ -1,5 +1,7 @@
 package com.icai.proyectofinal.entity;
 
+import com.icai.proyectofinal.model.Role;
+import com.icai.proyectofinal.entity.AppRestaurant;
 import jakarta.persistence.*;
 
 @Entity
@@ -19,10 +21,13 @@ public class AppUser {
     @Column(nullable = false)
     public String password;
 
+    //@Enumerated(EnumType.STRING)
     @Column(nullable = false)
     public String role;
 
     @Column(nullable = false)
     public String name;
 
+    @OneToMany(mappedBy = "id")
+    public AppRestaurant appRestaurant;
 }
