@@ -1,0 +1,21 @@
+package com.icai.proyectofinal.service;
+
+import com.icai.proyectofinal.entity.AppUser;
+import com.icai.proyectofinal.entity.Token;
+import com.icai.proyectofinal.model.ProfileRequest;
+import com.icai.proyectofinal.model.ProfileResponse;
+import com.icai.proyectofinal.model.RegisterRequest;
+
+import java.util.List;
+
+public interface UserServiceInterface {
+
+    Token login(String email, String password);
+    AppUser authenticate(String tokenId);
+    ProfileResponse profile(AppUser appUser);
+    ProfileResponse updateProfile(AppUser appUser, ProfileRequest profile);
+    ProfileResponse register(RegisterRequest register);
+    void logout(String tokenId);
+    void delete(AppUser appUser);
+
+}

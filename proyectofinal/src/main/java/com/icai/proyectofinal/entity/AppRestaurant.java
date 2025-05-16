@@ -4,6 +4,7 @@ import com.icai.proyectofinal.model.Type;
 import jakarta.persistence.*;
 
 @Entity
+@Data
 @Table(name = "RESTAURANTS")
 public class AppRestaurant {
 
@@ -18,13 +19,13 @@ public class AppRestaurant {
     @Column(nullable = false)
     private String name_restaurant;
 
-    //cambio lo de unique=true para pruebas
     @Column(nullable = false, unique = false)
     private String direction;
 
     @Column(nullable = false, unique = true)
     private String phone;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Type type;
 
