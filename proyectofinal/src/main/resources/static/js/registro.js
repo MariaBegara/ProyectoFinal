@@ -14,7 +14,7 @@ document.getElementById("form-registro").addEventListener("submit", async functi
     return;
   }
 
-  const payload = {
+  const model = {
     name_user,
     email,
     password1,
@@ -27,7 +27,7 @@ document.getElementById("form-registro").addEventListener("submit", async functi
     const response = await fetch("http://localhost:8080/usuario/nuevo", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
+      body: JSON.stringify(model),
     });
 
     if (response.status === 201) {
