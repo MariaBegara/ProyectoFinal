@@ -32,7 +32,7 @@ public class RestaurantController {
 
     /*
     /restaurantes/filtrar?tipo=FUSION&minScore=4.0
-     */
+    */
 
 
 

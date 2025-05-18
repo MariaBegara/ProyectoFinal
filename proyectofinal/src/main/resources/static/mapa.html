@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>¿Dónde comemos hoy?</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+<body>
+<h1>¿Dónde comemos hoy?</h1>
+
+<label>Tipo de comida:
+    <select id="tipo">
+        <option value="">Todos</option>
+        <option value="FUSION">Fusión</option>
+        <option value="OTHER">Otros</option>
+        <option value="AMERICAN">Americana</option>
+    </select>
+</label>
+
+<label>Puntuación mínima:
+    <input id="score" type="number" min="0" max="5" step="0.1" />
+</label>
+
+<button onclick="filtrar()">Filtrar</button>
+
+<div id="map" style="height: 500px;"></div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="/js/mapa.js"></script>
+</body>
+</html>
