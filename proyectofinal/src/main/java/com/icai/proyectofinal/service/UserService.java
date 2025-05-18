@@ -82,6 +82,7 @@ public class UserService implements UserServiceInterface{
         }
 
         AppUser user = new AppUser();
+        user.setName_user(register.name_user());  // ✅ esto es lo que falta
         user.name = register.name();
         user.email = register.email();
         user.password = hashing.hash(register.password1());

@@ -5,6 +5,7 @@ import com.icai.proyectofinal.entity.AppRestaurant;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -14,12 +15,15 @@ import java.util.List;
 public class AppUser {
 
     @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     public String id;
 
+
     @Column(nullable = false, unique = true)
-    public String name_user;
+    private String name_user;
+
 
     @Column(nullable = false, unique = true)
     public String email;
