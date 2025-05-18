@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Login</title>
+</head>
+<body>
+<h1>Bienvenido</h1>
+
+<h2>Iniciar sesión</h2>
+<form id="login-form">
+    <input name="email" placeholder="Email" required />
+    <input name="password" type="password" placeholder="Contraseña" required />
+    <button type="submit">Entrar</button>
+</form>
+
+<h2>Registrarse</h2>
+<form id="register-form">
+    <input name="name_user" placeholder="Usuario" required />
+    <input name="email" placeholder="Email" required />
+    <input name="password1" type="password" placeholder="Contraseña" required />
+    <input name="password2" type="password" placeholder="Repetir contraseña" required />
+    <input name="name" placeholder="Nombre real" />
+    <select name="role">
+        <option value="USER">Usuario</option>
+        <option value="OWNER">Dueño</option>
+    </select>
+    <button type="submit">Crear cuenta</button>
+</form>
+
+<script src="/js/frontend.js"></script>
+</body>
+</html>
