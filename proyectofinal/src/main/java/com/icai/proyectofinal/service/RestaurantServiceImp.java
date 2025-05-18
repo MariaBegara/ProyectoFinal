@@ -1,6 +1,7 @@
 package com.icai.proyectofinal.service;
 
 import com.icai.proyectofinal.entity.AppRestaurant;
+import com.icai.proyectofinal.model.Type;
 import com.icai.proyectofinal.repository.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,10 @@ public class RestaurantServiceImp implements RestaurantService{
         restaurantRepository.save(restaurant);
     }
     //luego añadiremos aqui los filtros para las busquedas
+    @Override
+    public List<AppRestaurant> getRestaurantsByType(String type) {
+        return restaurantRepository.findByType(Type.valueOf(type));
+    }
 
 
 }

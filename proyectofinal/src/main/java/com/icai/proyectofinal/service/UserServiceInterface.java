@@ -13,6 +13,7 @@ public interface UserServiceInterface {
     Token login(String email, String password);
     AppUser authenticate(String tokenId);
     ProfileResponse profile(AppUser appUser);
+    ProfileResponse profile(RegisterRequest register);
     ProfileResponse updateProfile(AppUser appUser, ProfileRequest profile);
     ProfileResponse register(RegisterRequest register);
     void logout(String tokenId);

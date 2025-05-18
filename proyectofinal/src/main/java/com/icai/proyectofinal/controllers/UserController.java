@@ -1,7 +1,9 @@
 package com.icai.proyectofinal.controllers;
 
 import com.icai.proyectofinal.entity.AppUser;
+import com.icai.proyectofinal.entity.Token;
 import com.icai.proyectofinal.errors.RecursoNoEncontradoException;
+import com.icai.proyectofinal.model.ProfileRequest;
 import com.icai.proyectofinal.model.ProfileResponse;
 import com.icai.proyectofinal.model.RegisterRequest;
 import com.icai.proyectofinal.service.UserService;
@@ -34,7 +36,16 @@ public class UserController {
         }
     }
 
-    @GetMapping("/usuario/yo")
+    @PostMapping("/login")
+    public Token login(@RequestParam String email, @RequestParam String password) {
+        Token token = userService.login(email, password);
+        if (token == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Credenciales incorrectas");
+        }
+        return token;
+    }
+
+    @GetMapping("/yo")
     @ResponseStatus(HttpStatus.OK)
     public ProfileResponse profile(
             @CookieValue(value = "session", required = true) String session) {
@@ -42,6 +53,31 @@ public class UserController {
         if (appUser == null) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         return userService.profile(appUser);
     }
+    @PutMapping("/yo")
+    public ProfileResponse updateProfile(
+            @CookieValue(value = "session", required = true) String session,
+            @RequestBody ProfileRequest profile) {
+
+        AppUser appUser = userService.authenticate(session);
+        if (appUser == null) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+
+        return userService.updateProfile(appUser, profile);
+    }
+    @DeleteMapping("/yo")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@CookieValue(value = "session", required = true) String session) {
+        AppUser appUser = userService.authenticate(session);
+        if (appUser == null) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+
+        userService.delete(appUser);
+    }
+
+    @PostMapping("/logout")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void logout(@CookieValue(value = "session", required = true) String session) {
+        userService.logout(session);
+    }
+
 
 
 

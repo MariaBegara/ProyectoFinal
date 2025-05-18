@@ -1,5 +1,6 @@
 package com.icai.proyectofinal.service;
 
+import com.icai.proyectofinal.Hashing;
 import com.icai.proyectofinal.entity.Token;
 import com.icai.proyectofinal.entity.AppUser;
 import com.icai.proyectofinal.model.ProfileRequest;
@@ -10,8 +11,7 @@ import com.icai.proyectofinal.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Objects;
+
 import java.util.Optional;
 
 @Service
@@ -21,8 +21,8 @@ public class UserService implements UserServiceInterface{
     private UserRepository userRepository; // es necesario para poder utilizar los métodos de AppUserRepository
     @Autowired
     private TokenRepository tokenRepository; // es necesario para poder utilizar los métodos de TokenRepository
-    //@Autowired
-    //private final Hashing hashing = new Hashing();
+    @Autowired
+    private Hashing hashing;
     /**
      * @param email email proporcionado para el login
      * @param password password proporcionado para el login
@@ -31,23 +31,21 @@ public class UserService implements UserServiceInterface{
      */
     @Override
     public Token login(String email, String password) {
+        Optional<AppUser> appUserOpt = userRepository.findByEmail(email);
+        if (appUserOpt.isEmpty()) return null;
 
-        //System.out.println("Login con email: '" + email + "' y contraseña: '" + password + "'");
+        AppUser appUser = appUserOpt.get();
+        if (!hashing.compare(appUser.password, password)) return null;
 
-        Optional<AppUser> appUser = userRepository.findByEmail(email);
+        Token token = tokenRepository.findByAppUser(appUserOpt);
+        if (token != null) return token;
 
-        //if ((appUser.isEmpty()) || (!hashing.compare(appUser.get().password, password))) return null; // si las credenciales son incorrectas, retorna null
-        if ((appUser.isEmpty()) || (!Objects.equals(appUser.get().password, password))) return null;
-        //System.out.println("usuario encontrado: '" + appUser.email + "' y contraseña en BD: " + appUser.password);
-
-        Token token = tokenRepository.findByAppUser(appUser); //ES <OPTIONAL>!! fix
-        if (token != null) return token; // @return si las credenciales del usuario son correctas, retorna un token de sesión asociado a dicho usuario;
-
-        // Crear nuevo token si no existe uno previo
-        Token token_nuevo = new Token();
-        tokenRepository.save(token_nuevo); // guardarlo
-        return token_nuevo;
+        Token nuevo = new Token();
+        nuevo.appUser = appUser;
+        tokenRepository.save(nuevo);
+        return nuevo;
     }
+
 
 
     /**
@@ -58,14 +56,9 @@ public class UserService implements UserServiceInterface{
     @Override
     public AppUser authenticate(String tokenId) {
         Optional<Token> tokenOpt = tokenRepository.findById(tokenId);
-
-        if (tokenOpt.isPresent()) {
-            Token token = tokenOpt.get();
-            return token.appUser;
-        } else {
-            return null;
-        }
+        return tokenOpt.map(token -> token.appUser).orElse(null);
     }
+
 
 
     /**
@@ -74,8 +67,31 @@ public class UserService implements UserServiceInterface{
      */
     @Override
     public ProfileResponse profile(AppUser appUser) {
-        return new ProfileResponse(appUser.name, appUser.email, appUser.role); // respuesta con el perfil de dicho usuario
+        return new ProfileResponse(appUser.email, appUser.name, appUser.role);
     }
+
+
+
+    /**
+     * Registra un nuevo usuario a partir de RegisterRequest.
+     */
+    @Override
+    public ProfileResponse profile(RegisterRequest register) {
+        if (!register.password1().equals(register.password2())) {
+            throw new IllegalArgumentException("Las contraseñas no coinciden");
+        }
+
+        AppUser user = new AppUser();
+        user.name = register.name();
+        user.email = register.email();
+        user.password = hashing.hash(register.password1());
+        user.role = register.role();
+
+        userRepository.save(user);
+
+        return profile(user); // reutiliza el método profile(AppUser)
+    }
+
 
 
     /**
@@ -85,19 +101,15 @@ public class UserService implements UserServiceInterface{
      */
     @Override
     public ProfileResponse updateProfile(AppUser appUser, ProfileRequest profile) {
-
-        if ((profile.name() != null) && (!profile.name().isEmpty())) {
+        if (profile.name() != null && !profile.name().isEmpty()) {
             appUser.name = profile.name();
         }
 
-        /*if ((Objects.equals(appUser.name, profile.name())) && (!hashing.compare(appUser.password, profile.password()))) {
-            appUser.password = hashing.hash(profile.password()); // Si el nombre coincide y se cambia la contraseña, esta se debe actualizar -> hasheada
-        }*/
-        if ((Objects.equals(appUser.name, profile.name())) && (Objects.equals(appUser.password, profile.password()))) {
-            appUser.password = profile.password(); // Si el nombre coincide y se cambia la contraseña, esta se debe actualizar -> hasheada
+        if (profile.password() != null && !profile.password().isEmpty()) {
+            appUser.password = hashing.hash(profile.password());
         }
 
-        userRepository.save(appUser); // Se actualiza el usuario con el cambio realizado
+        userRepository.save(appUser);
         return profile(appUser);
     }
 
@@ -109,17 +121,19 @@ public class UserService implements UserServiceInterface{
      */
     @Override
     public ProfileResponse register(RegisterRequest register) {
-        // register tiene todos los datos del usuario
+        if (!register.password1().equals(register.password2())) {
+            throw new IllegalArgumentException("Las contraseñas no coinciden");
+        }
+
         AppUser usuario = new AppUser();
-        //String password_hashed = hashing.hash(register.password());
-        usuario.name = register.name();
-        usuario.email = register.email();
-        //usuario.password = password_hashed; // Se debe guardar hasheada
-        usuario.password = register.password1();
-        usuario.role = register.role();
+        usuario.setName_user(register.name_user()); // <- ¡esto es obligatorio!
+        usuario.setEmail(register.email());
+        usuario.setPassword(hashing.hash(register.password1()));
+        usuario.setName(register.name());
+        usuario.setRole(register.role());
         userRepository.save(usuario);
 
-        return profile(usuario); // respuesta con el perfil del nuevo usuario
+        return profile(usuario);
     }
 
 

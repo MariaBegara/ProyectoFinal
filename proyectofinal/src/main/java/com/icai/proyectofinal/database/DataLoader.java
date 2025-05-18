@@ -1,8 +1,8 @@
 package com.icai.proyectofinal.database;
+
 import com.icai.proyectofinal.entity.AppRestaurant;
 import com.icai.proyectofinal.entity.AppUser;
 import com.icai.proyectofinal.model.Type;
-import com.icai.proyectofinal.repository.RestaurantRepository;
 import com.icai.proyectofinal.repository.UserRepository;
 import com.icai.proyectofinal.service.RestaurantService;
 import com.opencsv.CSVReader;
@@ -11,12 +11,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
-import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.Optional;
-
+import java.util.*;
 
 @Component
 public class DataLoader implements CommandLineRunner {
@@ -26,21 +23,24 @@ public class DataLoader implements CommandLineRunner {
 
     @Autowired
     private UserRepository userRepository;
+
     @Override
     public void run(String... args) throws Exception {
         // Crear o recuperar el usuario "unknown"
         AppUser unknownUser = userRepository.findByEmail("unknown@system.local")
                 .orElseGet(() -> {
                     AppUser user = new AppUser();
-                    user.name_user = "unknown";
-                    user.email = "unknown@system.local";
-                    user.password = "1234";
-                    user.role = "NONE";
-                    user.name = "Desconocido";
+                    user.setName_user("unknown");
+                    user.setEmail("unknown@system.local");
+                    user.setPassword("1234");
+                    user.setRole("NONE");
+                    user.setName("Desconocido");
                     return userRepository.save(user);
                 });
 
-        // Leer CSV con OpenCSV
+        // Cache temporal para evitar duplicación de dueños
+        Map<String, AppUser> userCache = new HashMap<>();
+
         CSVReader reader = new CSVReader(new InputStreamReader(
                 new ClassPathResource("restaurantes.csv").getInputStream(), StandardCharsets.UTF_8));
 
@@ -50,15 +50,28 @@ public class DataLoader implements CommandLineRunner {
         while ((campos = reader.readNext()) != null) {
             if (campos.length < 8) continue;
 
-            String idOwner = campos[1];
-            AppUser owner = userRepository.findById(idOwner).orElse(unknownUser);
+            String idOwner = campos[1].trim();
+            AppUser owner = userCache.get(idOwner);
+
+            if (owner == null) {
+                // No está en cache: crear usuario nuevo y guardarlo en BD
+                owner = new AppUser();
+                owner.setName_user(idOwner); // usa idOwner como name_user
+                owner.setEmail("autogen_" + idOwner + "@local.test");
+                owner.setPassword("default");
+                owner.setRole("OWNER");
+                owner.setName("Generado");
+                owner = userRepository.save(owner);
+
+                userCache.put(idOwner, owner); // guardar en cache
+            }
 
             try {
                 AppRestaurant restaurant = new AppRestaurant();
                 restaurant.setOwner(owner);
-                restaurant.setName_restaurant(campos[2]);
-                restaurant.setDirection(campos[3]);
-                restaurant.setPhone(campos[4]);
+                restaurant.setName_restaurant(campos[2].trim());
+                restaurant.setDirection(campos[3].trim());
+                restaurant.setPhone(campos[4].trim());
 
                 try {
                     restaurant.setType(Type.valueOf(campos[5].trim().toUpperCase()));
@@ -67,8 +80,8 @@ public class DataLoader implements CommandLineRunner {
                     restaurant.setType(Type.OTHER);
                 }
 
-                restaurant.setLatitude(campos[6]);
-                restaurant.setLongitude(campos[7]);
+                restaurant.setLatitude(campos[6].trim());
+                restaurant.setLongitude(campos[7].trim());
 
                 restaurantService.saveRestaurant(restaurant);
 
@@ -78,10 +91,4 @@ public class DataLoader implements CommandLineRunner {
             }
         }
     }
-
 }
-
-
-
-
-

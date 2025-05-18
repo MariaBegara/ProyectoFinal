@@ -2,10 +2,11 @@ package com.icai.proyectofinal.entity;
 
 import com.icai.proyectofinal.model.Type;
 import jakarta.persistence.*;
+import lombok.Data;
 
-@Entity
 @Data
-@Table(name = "RESTAURANTS")
+@Entity
+//@Table(name = "RESTAURANTS") // puedes descomentar si lo quieres explícito
 public class AppRestaurant {
 
     @Id
@@ -19,11 +20,10 @@ public class AppRestaurant {
     @Column(nullable = false)
     private String name_restaurant;
 
-    //cambio lo de unique=true para pruebas
-    @Column(nullable = false, unique = false)
+    @Column(nullable = false)
     private String direction;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String phone;
 
     @Enumerated(EnumType.STRING)
@@ -35,69 +35,4 @@ public class AppRestaurant {
 
     @Column(nullable = false)
     private String longitude;
-
-
-    //setters
-    public void setOwner(AppUser owner) {
-        this.owner = owner;
-    }
-
-    public void setName_restaurant(String name_restaurant) {
-        this.name_restaurant = name_restaurant;
-    }
-
-    public void setDirection(String direction) {
-        this.direction = direction;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public void setType(Type type) {
-        this.type = type;
-    }
-
-    public void setLatitude(String latitude) {
-        this.latitude = latitude;
-    }
-
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
-    }
-
-
-    //getters
-    public String getId() {
-        return id;
-    }
-
-    public AppUser getOwner() {
-        return owner;
-    }
-
-    public String getName_restaurant() {
-        return name_restaurant;
-    }
-
-    public String getDirection() {
-        return direction;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public Type getType() {
-        return type;
-    }
-
-    public String getLatitude() {
-        return latitude;
-    }
-
-    public String getLongitude() {
-        return longitude;
-    }
-
 }

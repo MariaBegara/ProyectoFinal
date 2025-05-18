@@ -1,6 +1,8 @@
 package com.icai.proyectofinal.model;
 
-import org.hibernate.annotations.processing.Pattern;
+//import org.hibernate.annotations.processing.Pattern;
+import jakarta.validation.constraints.Pattern;
+
 
 public record ProfileRequest(
     String name,

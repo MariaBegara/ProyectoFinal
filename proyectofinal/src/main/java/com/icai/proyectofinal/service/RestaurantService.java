@@ -7,4 +7,5 @@ import java.util.List;
 public interface RestaurantService {
     List<AppRestaurant> getAllRestaurants();
     void saveRestaurant(AppRestaurant restaurant);
+    List<AppRestaurant> getRestaurantsByType(String type);
 }
