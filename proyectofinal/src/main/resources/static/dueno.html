@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Mis Restaurantes</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+<header>
+    <h1>Panel del Dueño</h1>
+</header>
+
+<main>
+    <section>
+        <h2>Subir nuevo restaurante</h2>
+        <form id="form-restaurante">
+            <label for="name_restaurant">Nombre:</label>
+            <input type="text" id="name_restaurant" name="name_restaurant" required />
+
+            <label for="direction">Dirección: </label>
+            <input type="text" id="direction" name="direction" required />
+
+            <label for="phone">Teléfono: </label>
+            <input type="text" id="phone" name="phone" required />
+
+            <label for="type">Tipo: </label>
+            <select id="type" name="type" required>
+                <option value="">Selecciona tipo</option>
+                <option value="ITALIAN">Italiano</option>
+                <option value="JAPANESE">Japonés</option>
+                <option value="FUSION">Fusión</option>
+                <!-- falta poner todso los tipos -->
+            </select>
+
+            <label for="latitude">Latitud:</label>
+            <input type="text" id="latitude" name="latitude" required />
+
+            <label for="longitude">Longitud:</label>
+            <input type="text" id="longitude" name="longitude" required />
+
+            <button type="submit" class="btn">Subir restaurante</button>
+        </form>
+        <p id="mensaje-envio" class="info-msg"></p>
+    </section>
+
+    <section>
+        <h2>Mis restaurantes</h2>
+        <ul id="lista-propios"></ul>
+    </section>
+</main>
+
+<footer>
+    <p><a href="index.html">Cerrar sesión</a></p>
+</footer>
+
+<script src="js/dueno.js"></script>
+<script>
+    document.body.style.backgroundImage = "url('img/dueno.png')";
+</script>
+
+</body>
+</html>
