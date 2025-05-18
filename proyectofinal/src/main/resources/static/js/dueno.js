@@ -49,21 +49,21 @@ async function cargarUsuarioYRestaurantes() {
 }
 
 async function subirRestaurante() {
-  const name_restaurant = document.getElementById("name_restaurant").value;
-  const direction = document.getElementById("direction").value;
-  const phone = document.getElementById("phone").value;
-  const type = document.getElementById("type").value;
-  const latitude = document.getElementById("latitude").value;
-  const longitude = document.getElementById("longitude").value;
+  const nombre_res = document.getElementById("nombre_restaurante").value;
+  const dir = document.getElementById("direccion").value;
+  const movil = document.getElementById("movil").value;
+  const tipo = document.getElementById("type").value;
+  const lat = document.getElementById("latitud").value;
+  const long = document.getElementById("longitud").value;
   const mensaje = document.getElementById("mensaje-envio");
 
   const modelo = {
-    name_restaurant,
-    direction,
-    phone,
-    type,
-    latitude,
-    longitude
+    nombre_res,
+    dir,
+    movil,
+    tipo,
+    lat,
+    long
   };
 
   try {
@@ -80,10 +80,10 @@ async function subirRestaurante() {
       cargarUsuarioYRestaurantes();
     } else {
       const error = await response.text();
-      mensaje.textContent = "Error al subir restaurante: " + error;
+      mensaje.textContent = "Error al subir el restaurante: " + error;
     }
   } catch (err) {
-    console.error("Error enviando restaurante:", err);
+    console.error("Error enviando el  restaurante:", err);
     mensaje.textContent = "Error al conectar con el servidor.";
   }
 }
