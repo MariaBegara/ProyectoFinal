@@ -1,7 +1,7 @@
 package com.icai.proyectofinal.controllers;
 
 import com.icai.proyectofinal.entity.AppRestaurant;
-import com.icai.proyectofinal.service.RestaurantService;
+import com.icai.proyectofinal.service.RestaurantInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,16 +14,16 @@ import java.util.List;
 @RequestMapping("/restaurantes")
 public class RestaurantController {
     @Autowired
-    private RestaurantService restaurantService;
+    private RestaurantInterface restaurantInterface;
 
     @GetMapping("/mostrarlista")
     public List<AppRestaurant> getAll() {
-        return restaurantService.getAllRestaurants();
+        return restaurantInterface.getAllRestaurants();
     }
 
     @GetMapping("/filtrar")
     public List<AppRestaurant> getByType(@RequestParam String tipo) {
-        return restaurantService.getRestaurantsByType(tipo.toUpperCase());
+        return restaurantInterface.getRestaurantsByType(tipo.toUpperCase());
     }
 
 

@@ -4,7 +4,7 @@ import com.icai.proyectofinal.entity.AppRestaurant;
 import com.icai.proyectofinal.entity.AppUser;
 import com.icai.proyectofinal.model.Type;
 import com.icai.proyectofinal.repository.UserRepository;
-import com.icai.proyectofinal.service.RestaurantService;
+import com.icai.proyectofinal.service.RestaurantInterface;
 import com.opencsv.CSVReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -19,7 +19,7 @@ import java.util.*;
 public class DataLoader implements CommandLineRunner {
 
     @Autowired
-    private RestaurantService restaurantService;
+    private RestaurantInterface restaurantInterface;
 
     @Autowired
     private UserRepository userRepository;
@@ -83,7 +83,7 @@ public class DataLoader implements CommandLineRunner {
                 restaurant.setLatitude(campos[6].trim());
                 restaurant.setLongitude(campos[7].trim());
 
-                restaurantService.saveRestaurant(restaurant);
+                restaurantInterface.saveRestaurant(restaurant);
 
             } catch (Exception e) {
                 System.err.println("Error al procesar línea: " + Arrays.toString(campos));
