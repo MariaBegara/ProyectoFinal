@@ -50,7 +50,7 @@ async function cargarRestaurantes() {
       // Añadir marcador al mapa
       const marker = L.marker([parseFloat(r.latitude), parseFloat(r.longitude)])
         .addTo(map)
-        .bindPopup(`<strong>${r.name_restaurant}</strong><br>${r.direction}<br>⭐ ${r.averageScore.toFixed(1)}`);
+        .bindPopup(`<strong>${r.name_restaurant}</strong><br>${r.direction}<br> ${r.averageScore.toFixed(1)}`);
       markers.push(marker);
     });
 
