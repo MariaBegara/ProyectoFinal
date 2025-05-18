@@ -1,10 +1,15 @@
 package com.icai.proyectofinal.service;
 
 import com.icai.proyectofinal.entity.AppRestaurant;
+import com.icai.proyectofinal.entity.AppReview;
+import com.icai.proyectofinal.model.RestaurantResponse;
 import com.icai.proyectofinal.model.Type;
 import com.icai.proyectofinal.repository.RestaurantRepository;
+import com.icai.proyectofinal.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -12,6 +17,8 @@ import java.util.List;
 public class RestaurantService implements RestaurantInterface {
     @Autowired
     private RestaurantRepository restaurantRepository;
+    @Autowired
+    private ReviewRepository reviewRepository;
 
     public RestaurantService(RestaurantRepository restaurantRepository) {
         this.restaurantRepository = restaurantRepository;
@@ -30,6 +37,37 @@ public class RestaurantService implements RestaurantInterface {
     public List<AppRestaurant> getRestaurantsByType(String type) {
         return restaurantRepository.findByType(Type.valueOf(type));
     }
+    public List<RestaurantResponse> getRestaurantsFiltered(String type, Double minScore) {
+        List<AppRestaurant> restaurantes;
 
+        if (type != null) {
+            try {
+                restaurantes = restaurantRepository.findByType(Type.valueOf(type.toUpperCase()));
+            } catch (IllegalArgumentException e) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Tipo no válido");
+            }
+        } else {
+            restaurantes = (List<AppRestaurant>) restaurantRepository.findAll();
+        }
+
+        return restaurantes.stream()
+                .map(r -> {
+                    List<AppReview> reviews = reviewRepository.findByRestaurant(r);
+                    double avg = reviews.isEmpty() ? 0.0 :
+                            reviews.stream().mapToInt(AppReview::getScore).average().orElse(0.0);
+                    return new RestaurantResponse(
+                            r.getId(),
+                            r.getName_restaurant(),
+                            r.getLatitude(),
+                            r.getLongitude(),
+                            r.getDirection(),
+                            r.getPhone(),
+                            r.getType().toString(),
+                            avg
+                    );
+                })
+                .filter(resp -> minScore == null || resp.averageScore() >= minScore)
+                .toList();
+    }
 
 }
