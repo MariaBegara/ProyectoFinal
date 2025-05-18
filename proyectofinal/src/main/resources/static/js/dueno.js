@@ -39,7 +39,7 @@ async function cargarUsuarioYRestaurantes() {
 
     lista.forEach(r => {
       const li = document.createElement("li");
-      li.innerHTML = `<strong>${r.name_restaurant}</strong> (${r.type})<br>${r.direction} - 📞 ${r.phone}`;
+      li.innerHTML = `<strong>${r.name_restaurant}</strong> (${r.type})<br>${r.direction} ${r.phone}`;
       ul.appendChild(li);
     });
 
@@ -57,7 +57,7 @@ async function subirRestaurante() {
   const longitude = document.getElementById("longitude").value;
   const mensaje = document.getElementById("mensaje-envio");
 
-  const payload = {
+  const modelo = {
     name_restaurant,
     direction,
     phone,
@@ -71,7 +71,7 @@ async function subirRestaurante() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
-      body: JSON.stringify(payload)
+      body: JSON.stringify(modelo)
     });
 
     if (response.ok) {
