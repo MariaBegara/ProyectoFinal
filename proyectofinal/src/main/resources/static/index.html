@@ -2,32 +2,37 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
-    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Buscador de Restaurantes</title>
+    <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-<h1>Bienvenido</h1>
+<header>
+    <h1>Bienvenido al proyecto de PAT </h1>
+</header>
 
-<h2>Iniciar sesión</h2>
-<form id="login-form">
-    <input name="email" placeholder="Email" required />
-    <input name="password" type="password" placeholder="Contraseña" required />
-    <button type="submit">Entrar</button>
-</form>
+<main class="centered">
+    <p>¿Qué te gustaría hacer?</p>
+    <div class="button-group">
+        <a href="registro.html" class="btn">Registrarse</a>
+        <a href="login.html" class="btn">Iniciar Sesión</a>
+    </div>
+</main>
 
-<h2>Registrarse</h2>
-<form id="register-form">
-    <input name="name_user" placeholder="Usuario" required />
-    <input name="email" placeholder="Email" required />
-    <input name="password1" type="password" placeholder="Contraseña" required />
-    <input name="password2" type="password" placeholder="Repetir contraseña" required />
-    <input name="name" placeholder="Nombre real" />
-    <select name="role">
-        <option value="USER">Usuario</option>
-        <option value="OWNER">Dueño</option>
-    </select>
-    <button type="submit">Crear cuenta</button>
-</form>
+<footer>
+    <p>Proyecto Final-ICAI</p>
+</footer>
 
-<script src="/js/frontend.js"></script>
+<script>
+    const fondos = ["img/fondo2.png", "img/fondo3.png", "img/fondo4.png", "img/fondo.png"];
+    let index = 0;
+    const changeBackground = () => {
+      document.body.style.backgroundImage = `url('${fondos[index]}')`;
+      index = (index + 1) % fondos.length;
+    };
+    changeBackground();
+    setInterval(changeBackground, 5000); // cambia cada 5 segundos
+</script>
+
 </body>
 </html>
