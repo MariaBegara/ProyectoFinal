@@ -3,9 +3,9 @@ package com.icai.proyectofinal.service;
 import com.icai.proyectofinal.Hashing;
 import com.icai.proyectofinal.entity.Token;
 import com.icai.proyectofinal.entity.AppUser;
-import com.icai.proyectofinal.model.ProfileRequest;
-import com.icai.proyectofinal.model.ProfileResponse;
-import com.icai.proyectofinal.model.RegisterRequest;
+import com.icai.proyectofinal.model.user.ProfileRequest;
+import com.icai.proyectofinal.model.user.ProfileResponse;
+import com.icai.proyectofinal.model.user.RegisterRequest;
 import com.icai.proyectofinal.repository.TokenRepository;
 import com.icai.proyectofinal.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,7 +82,7 @@ public class UserService implements UserServiceInterface{
         }
 
         AppUser user = new AppUser();
-        user.setName_user(register.name_user());  // ✅ esto es lo que falta
+        user.setName_user(register.name_user());
         user.name = register.name();
         user.email = register.email();
         user.password = hashing.hash(register.password1());

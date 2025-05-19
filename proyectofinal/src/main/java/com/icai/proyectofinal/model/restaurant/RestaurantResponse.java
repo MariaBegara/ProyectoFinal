@@ -1,4 +1,4 @@
-package com.icai.proyectofinal.model;
+package com.icai.proyectofinal.model.restaurant;
 
 public record RestaurantResponse(
         String id,

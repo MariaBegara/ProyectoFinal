@@ -1,14 +1,14 @@
 package com.icai.proyectofinal.controllers;
 
-import com.icai.proyectofinal.entity.AppRestaurant;
-import com.icai.proyectofinal.model.RestaurantResponse;
-import com.icai.proyectofinal.service.RestaurantInterface;
+import com.icai.proyectofinal.model.restaurant.RestaurantRegister;
+import com.icai.proyectofinal.model.restaurant.RestaurantResponse;
 import com.icai.proyectofinal.service.RestaurantService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -28,6 +28,18 @@ public class RestaurantController {
             @RequestParam(required = false) String tipo,
             @RequestParam(required = false) Double minScore) {
         return restaurantService.getRestaurantsFiltered(tipo, minScore);
+    }
+
+    @PostMapping("/nuevo")
+    @ResponseStatus(HttpStatus.CREATED)
+    public RestaurantResponse register(
+            @Valid
+            @RequestBody RestaurantRegister register) {
+        try {
+            return restaurantService.saveRestaurant(register);
+        } catch (DataIntegrityViolationException e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage(), e);
+        }
     }
 
     /*

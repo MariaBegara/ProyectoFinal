@@ -1,4 +1,4 @@
-package com.icai.proyectofinal.model;
+package com.icai.proyectofinal.model.user;
 
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Email;
@@ -16,7 +16,7 @@ public record RegisterRequest(
         @Pattern(regexp = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z]).{8,}$")
         String password1,
 
-        @NotBlank(message = "Las contraseñas no coinciden")
+        @NotBlank(message = "Verifique su contraseña")
         String password2,
 
         String name,

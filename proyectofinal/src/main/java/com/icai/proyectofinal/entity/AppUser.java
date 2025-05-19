@@ -1,7 +1,5 @@
 package com.icai.proyectofinal.entity;
 
-import com.icai.proyectofinal.model.Role;
-import com.icai.proyectofinal.entity.AppRestaurant;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;

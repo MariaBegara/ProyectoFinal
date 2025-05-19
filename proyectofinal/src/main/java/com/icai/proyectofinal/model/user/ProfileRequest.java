@@ -1,6 +1,7 @@
-package com.icai.proyectofinal.model;
+package com.icai.proyectofinal.model.user;
 
 //import org.hibernate.annotations.processing.Pattern;
+import com.icai.proyectofinal.model.Role;
 import jakarta.validation.constraints.Pattern;
 
 

@@ -2,11 +2,9 @@ package com.icai.proyectofinal.service;
 
 import com.icai.proyectofinal.entity.AppUser;
 import com.icai.proyectofinal.entity.Token;
-import com.icai.proyectofinal.model.ProfileRequest;
-import com.icai.proyectofinal.model.ProfileResponse;
-import com.icai.proyectofinal.model.RegisterRequest;
-
-import java.util.List;
+import com.icai.proyectofinal.model.user.ProfileRequest;
+import com.icai.proyectofinal.model.user.ProfileResponse;
+import com.icai.proyectofinal.model.user.RegisterRequest;
 
 public interface UserServiceInterface {
 

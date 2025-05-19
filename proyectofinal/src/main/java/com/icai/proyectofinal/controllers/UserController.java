@@ -2,15 +2,13 @@ package com.icai.proyectofinal.controllers;
 
 import com.icai.proyectofinal.entity.AppUser;
 import com.icai.proyectofinal.entity.Token;
-import com.icai.proyectofinal.errors.RecursoNoEncontradoException;
-import com.icai.proyectofinal.model.ProfileRequest;
-import com.icai.proyectofinal.model.ProfileResponse;
-import com.icai.proyectofinal.model.RegisterRequest;
+import com.icai.proyectofinal.model.user.ProfileRequest;
+import com.icai.proyectofinal.model.user.ProfileResponse;
+import com.icai.proyectofinal.model.user.RegisterRequest;
 import com.icai.proyectofinal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import jakarta.validation.Valid;

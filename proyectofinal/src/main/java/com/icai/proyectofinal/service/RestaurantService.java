@@ -2,8 +2,9 @@ package com.icai.proyectofinal.service;
 
 import com.icai.proyectofinal.entity.AppRestaurant;
 import com.icai.proyectofinal.entity.AppReview;
-import com.icai.proyectofinal.model.RestaurantResponse;
-import com.icai.proyectofinal.model.Type;
+import com.icai.proyectofinal.model.*;
+import com.icai.proyectofinal.model.restaurant.RestaurantRegister;
+import com.icai.proyectofinal.model.restaurant.RestaurantResponse;
 import com.icai.proyectofinal.repository.RestaurantRepository;
 import com.icai.proyectofinal.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +29,7 @@ public class RestaurantService implements RestaurantInterface {
     public List<AppRestaurant> getAllRestaurants() {
         return (List<AppRestaurant>) restaurantRepository.findAll();
     }
-    @Override
-    public void saveRestaurant(AppRestaurant restaurant) {
-        restaurantRepository.save(restaurant);
-    }
-    //luego añadiremos aqui los filtros para las busquedas
+
     @Override
     public List<AppRestaurant> getRestaurantsByType(String type) {
         return restaurantRepository.findByType(Type.valueOf(type));
@@ -68,6 +65,39 @@ public class RestaurantService implements RestaurantInterface {
                 })
                 .filter(resp -> minScore == null || resp.averageScore() >= minScore)
                 .toList();
+    }
+
+    @Override
+    public void saveRestaurant(AppRestaurant restaurant) {
+        restaurantRepository.save(restaurant);
+    }
+    //luego añadiremos aquí los filtros para las busquedas
+
+    @Override
+    public RestaurantResponse saveRestaurant (RestaurantRegister register) {
+
+        AppRestaurant restaurant = new AppRestaurant();
+        restaurant.setName_restaurant(register.name_restaurant());
+        restaurant.setPhone(register.phone());
+        restaurant.setDirection(register.direction());
+        restaurant.setType(register.tipo());
+        restaurant.setLatitude(register.latitude());
+        restaurant.setLongitude(register.longitude());
+        //restaurant.setAvg(avg);
+
+
+        restaurantRepository.save(restaurant);
+        double avg = 0.0;
+        return new RestaurantResponse(
+                restaurant.getId(),
+                restaurant.getName_restaurant(),
+                restaurant.getLatitude(),
+                restaurant.getLongitude(),
+                restaurant.getDirection(),
+                restaurant.getPhone(),
+                restaurant.getType().toString(),
+                avg
+        );
     }
 
 }

@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @Entity
-//@Table(name = "RESTAURANTS") // puedes descomentar si lo quieres explícito
+//@Table(name = "RESTAURANTS")
 public class AppRestaurant {
 
     @Id
