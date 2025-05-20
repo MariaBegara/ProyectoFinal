@@ -3,6 +3,8 @@ package com.icai.proyectofinal.integration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.icai.proyectofinal.model.user.RegisterRequest;
 import com.icai.proyectofinal.repository.UserRepository;
+import com.icai.proyectofinal.repository.RestaurantRepository;
+import com.icai.proyectofinal.repository.ReviewRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
+
+import jakarta.servlet.http.Cookie;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -24,10 +28,16 @@ class UserIntegrationTest {
     @Autowired
     private UserRepository userRepository;
     @Autowired
+    private RestaurantRepository restaurantRepository;
+    @Autowired
+    private ReviewRepository reviewRepository;
+    @Autowired
     private ObjectMapper objectMapper;
 
     @BeforeEach
     void setUp() {
+        reviewRepository.deleteAll();
+        restaurantRepository.deleteAll();
         userRepository.deleteAll();
     }
 
@@ -80,9 +90,11 @@ class UserIntegrationTest {
                 .andExpect(status().isOk())
                 .andReturn();
         var session = login.getResponse().getHeader("Set-Cookie");
+        // Extraer solo el valor del sessionId de la cookie
+        String sessionId = session.split("=")[1].split(";")[0];
         // Consultar perfil autenticado
         mockMvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get("/usuario/yo")
-                .header("Cookie", session))
+                .cookie(new Cookie("session", sessionId)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.email").value("usuario2@test.com"));
     }
@@ -108,8 +120,9 @@ class UserIntegrationTest {
                 .andExpect(status().isOk())
                 .andReturn();
         var session = login.getResponse().getHeader("Set-Cookie");
+        String sessionId = session.split("=")[1].split(";")[0];
         mockMvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete("/usuario/yo")
-                .header("Cookie", session))
+                .cookie(new Cookie("session", sessionId)))
                 .andExpect(status().isOk());
     }
 

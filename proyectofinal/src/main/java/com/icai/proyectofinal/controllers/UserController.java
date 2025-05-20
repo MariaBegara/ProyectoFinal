@@ -12,7 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import jakarta.validation.Valid;
-
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Cookie;
 
 @RestController
 @RequestMapping("/usuario")
@@ -37,18 +38,25 @@ public class UserController {
     @PostMapping("/login")
     public Token login(
             @RequestParam String email,
-            @RequestParam String password) {
+            @RequestParam String password,
+            HttpServletResponse response
+    ) {
         Token token = userService.login(email, password);
-        if (token == null) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Credenciales incorrectas");
-        }
+        if (token == null) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        // Añadir cookie de sesión
+        Cookie cookie = new Cookie("session", token.getId());
+        cookie.setPath("/");
+        cookie.setHttpOnly(true);
+        cookie.setMaxAge(60 * 60 * 24); // 1 día
+        response.addCookie(cookie);
         return token;
     }
 
     @GetMapping("/yo")
     @ResponseStatus(HttpStatus.OK)
     public ProfileResponse profile(
-            @CookieValue(value = "session", required = true) String session) {
+            @CookieValue(value = "session", required = false) String session) {
+        if (session == null) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         AppUser appUser = userService.authenticate(session);
         if (appUser == null) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         return userService.profile(appUser);
@@ -72,12 +80,12 @@ public class UserController {
     }
 
     @DeleteMapping("/yo")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.OK)
     public void delete(
-            @CookieValue(value = "session") String session) {
+            @CookieValue(value = "session", required = false) String session) {
+        if (session == null) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         AppUser appUser = userService.authenticate(session);
         if (appUser == null) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
-
         userService.delete(appUser);
     }
 

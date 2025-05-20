@@ -88,7 +88,7 @@ class ReviewServiceTest {
         review.setScore(4);
         review.setUser(user);
         review.setRestaurant(rest);
-        when(reviewRepository.findByUser("u4")).thenReturn(List.of(review));
+        when(reviewRepository.findByUser_Id("u4")).thenReturn(List.of(review));
         List<ReviewResponse> result = reviewService.getReviewsUser(user);
         assertEquals(1, result.size());
         assertEquals("Genial", result.get(0).content());

@@ -16,4 +16,8 @@ public class Token {
     @OnDelete(action = OnDeleteAction.CASCADE)
     public AppUser appUser;
 
+    public String getId() {
+        return id;
+    }
+
 }

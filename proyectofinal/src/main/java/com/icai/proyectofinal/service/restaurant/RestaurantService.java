@@ -2,6 +2,7 @@ package com.icai.proyectofinal.service.restaurant;
 
 import com.icai.proyectofinal.entity.AppRestaurant;
 import com.icai.proyectofinal.entity.AppReview;
+import com.icai.proyectofinal.entity.AppUser;
 import com.icai.proyectofinal.model.*;
 import com.icai.proyectofinal.model.restaurant.RestaurantRegister;
 import com.icai.proyectofinal.model.restaurant.RestaurantResponse;
@@ -32,9 +33,9 @@ public class RestaurantService implements RestaurantServiceInterface {
     }
     //luego añadiremos aquí los filtros para las busquedas
 
-    @Override
-    public RestaurantResponse saveRestaurant (RestaurantRegister register) {
+    public RestaurantResponse saveRestaurant(RestaurantRegister register, AppUser owner) {
         AppRestaurant restaurant = new AppRestaurant();
+        restaurant.setOwner(owner);
         restaurant.setName_restaurant(register.name_restaurant());
         restaurant.setPhone(register.phone());
         restaurant.setDirection(register.direction());
@@ -55,6 +56,12 @@ public class RestaurantService implements RestaurantServiceInterface {
                 saved.getType().toString(),
                 avg
         );
+    }
+
+    // Implementación vacía para cumplir con la interfaz, pero lanzar excepción para forzar uso del método correcto
+    @Override
+    public RestaurantResponse saveRestaurant(RestaurantRegister register) {
+        throw new UnsupportedOperationException("Usa saveRestaurant(RestaurantRegister, AppUser owner)");
     }
 
     @Override

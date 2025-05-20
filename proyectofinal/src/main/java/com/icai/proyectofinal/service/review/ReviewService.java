@@ -78,7 +78,7 @@ public class ReviewService implements ReviewServiceInterface {
 
     @Override
     public List<ReviewResponse> getReviewsUser(AppUser appUser) {
-        List<AppReview> reviews = reviewRepository.findByUser(appUser.getId());
+        List<AppReview> reviews = reviewRepository.findByUser_Id(appUser.getId());
 
         List<ReviewResponse> responses = new ArrayList<>();
 

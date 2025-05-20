@@ -7,6 +7,7 @@ import com.icai.proyectofinal.model.review.ReviewRegister;
 import com.icai.proyectofinal.model.user.RegisterRequest;
 import com.icai.proyectofinal.repository.RestaurantRepository;
 import com.icai.proyectofinal.repository.UserRepository;
+import com.icai.proyectofinal.repository.ReviewRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,8 @@ class ReviewIntegrationTest {
     @Autowired
     private RestaurantRepository restaurantRepository;
     @Autowired
+    private ReviewRepository reviewRepository;
+    @Autowired
     private ObjectMapper objectMapper;
 
     private String session;
@@ -37,8 +40,10 @@ class ReviewIntegrationTest {
 
     @BeforeEach
     void setUp() throws Exception {
-        userRepository.deleteAll();
+        // Eliminar primero reviews, luego restaurantes, luego usuarios
+        reviewRepository.deleteAll();
         restaurantRepository.deleteAll();
+        userRepository.deleteAll();
         // Registrar usuario y login
         RegisterRequest req = new RegisterRequest("user1", "user1@test.com", "Password1", "Password1", "Nombre", "USER");
         mockMvc.perform(post("/usuario/nuevo")

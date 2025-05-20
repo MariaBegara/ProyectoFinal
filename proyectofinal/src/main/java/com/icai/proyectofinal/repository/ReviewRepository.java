@@ -11,6 +11,6 @@ import java.util.Optional;
 @Repository
 public interface ReviewRepository extends CrudRepository<AppReview, String> {
     List<AppReview> findByRestaurant(AppRestaurant restaurant);
-    List<AppReview> findByUser (String user_name);
+    List<AppReview> findByUser_Id(String userId);
     Optional<AppReview> findById (String user_id);
 }
