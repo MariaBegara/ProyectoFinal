@@ -47,6 +47,8 @@ async function cargarUsuarioYRestaurantes() {
     console.error("Error cargando perfil o restaurantes del dueño:", err);
   }
 }
+
+/*
 async function subirRestaurante() {
   const name_restaurant = document.getElementById("nombre_restaurante").value;
   const direction = document.getElementById("direccion").value;
@@ -94,6 +96,56 @@ async function subirRestaurante() {
       mensaje.textContent = "Restaurante subido correctamente.";
       document.getElementById("form-restaurante").reset();
       cargarUsuarioYRestaurantes();
+    } else {
+      window.location.href = "cliente.html";
+      const error = await response.text();
+      mensaje.textContent = "Error al subir el restaurante: " + error;
+    }
+  } catch (err) {
+    console.error("Error enviando el restaurante:", err);
+    mensaje.textContent = "Error al conectar con el servidor.";
+  }
+
+ */
+
+
+async function subirRestaurante() {
+  const name_restaurant = document.getElementById("name_restaurant").value;
+  const direction = document.getElementById("direccion").value;
+  const phone = document.getElementById("phone").value;
+  const tipo = document.getElementById("tipo").value;
+  const latitude = document.getElementById("latitud").value;
+  const longitude = document.getElementById("longitud").value;
+  const mensaje = document.getElementById("mensaje-envio");
+
+  // Validación básica
+  if (!name_restaurant || !direction || !phone || !tipo || !latitude || !longitude) {
+    mensaje.textContent = "Por favor, rellena todos los campos correctamente.";
+    return;
+  }
+
+  const modelo = {
+    name_restaurant,
+    direction,
+    phone,
+    tipo,
+    latitude,
+    longitude
+  };
+
+  try {
+    const response = await fetch("http://localhost:8080/restaurantes/nuevo", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify(modelo)
+    });
+
+    if (response.status === 201 || response.ok) {
+      mensaje.textContent = "Restaurante subido correctamente.";
+      document.getElementById("form-restaurante").reset();
+      cargarUsuarioYRestaurantes();
+      window.location.href = "cliente.html";
     } else {
       window.location.href = "cliente.html";
       const error = await response.text();

@@ -86,7 +86,7 @@ public class RestaurantController {
 
         return restaurantService.saveRestaurant(register, owner);
     }
-*/
+
 
     @PostMapping("/nuevo")
     @ResponseStatus(HttpStatus.CREATED)
@@ -94,20 +94,36 @@ public class RestaurantController {
             @CookieValue("session") String sessionId,
             @Valid @RequestBody RestaurantRegister register) {
         try {
-            // Verificar si el usuario está autenticado
+            // Autenticamos al usuario con la cookie
             AppUser user = userService.authenticate(sessionId);
+
             if (user == null) {
-                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Usuario no autenticado.");
+                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
             }
 
-            // Intentar registrar el restaurante
+            // Guardamos el restaurante con el usuario autenticado
             return restaurantService.saveRestaurant(register, user);
         } catch (DataIntegrityViolationException e) {
-            // Ocurrió un conflicto en la base de datos (ej. datos duplicados)
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "El restaurante ya existe o hay datos inválidos.", e);
-        } catch (Exception e) {
-            // Manejo genérico de errores
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error al registrar el restaurante.", e);
+            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage(), e);
+        }
+    }
+
+ */
+
+    @PostMapping("/nuevo")
+    @ResponseStatus(HttpStatus.CREATED)
+    public RestaurantResponse register(
+            @CookieValue("session") String sessionId,
+            @Valid @RequestBody RestaurantRegister register) {
+        try {
+            AppUser user = userService.authenticate(sessionId);
+            if (user == null) {
+                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+            }
+
+            return restaurantService.saveRestaurant(register, user);
+        } catch (DataIntegrityViolationException e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage(), e);
         }
     }
 
