@@ -38,31 +38,35 @@ public class RestaurantService implements RestaurantServiceInterface {
 
     @Override
     public RestaurantResponse saveRestaurant (RestaurantRegister register, AppUser owner) {
+        try {
+            AppRestaurant restaurant = new AppRestaurant();
+            restaurant.setName_restaurant(register.name_restaurant());
+            restaurant.setPhone(register.phone());
+            restaurant.setDirection(register.direction());
+            restaurant.setType(register.tipo());
+            restaurant.setLatitude(register.latitude());
+            restaurant.setLongitude(register.longitude());
+            restaurant.setOwner(owner);
+            restaurant.setScore(1);
+            //restaurant.setAvg(avg);
 
-        AppRestaurant restaurant = new AppRestaurant();
-        restaurant.setName_restaurant(register.name_restaurant());
-        restaurant.setPhone(register.phone());
-        restaurant.setDirection(register.direction());
-        restaurant.setType(register.tipo());
-        restaurant.setLatitude(register.latitude());
-        restaurant.setLongitude(register.longitude());
-        restaurant.setOwner(owner);
-        restaurant.setScore(0);
-        //restaurant.setAvg(avg);
 
-
-        restaurantRepository.save(restaurant);
-        double avg = 0.0;
-        return new RestaurantResponse(
-                restaurant.getId(),
-                restaurant.getName_restaurant(),
-                restaurant.getLatitude(),
-                restaurant.getLongitude(),
-                restaurant.getDirection(),
-                restaurant.getPhone(),
-                restaurant.getType().toString(),
-                avg
-        );
+            AppRestaurant savedRestaurant = restaurantRepository.save(restaurant);
+            double avg = 1.0;
+            return new RestaurantResponse(
+                    savedRestaurant.getId(),
+                    savedRestaurant.getName_restaurant(),
+                    savedRestaurant.getLatitude(),
+                    savedRestaurant.getLongitude(),
+                    savedRestaurant.getDirection(),
+                    savedRestaurant.getPhone(),
+                    savedRestaurant.getType().toString(),
+                    avg
+            );
+        } catch (Exception e) {
+            // En caso de falla, lanzar un error interno
+            throw new RuntimeException("Error al intentar guardar el restaurante: " + e.getMessage(), e);
+        }
     }
 
     @Override
@@ -137,5 +141,7 @@ public class RestaurantService implements RestaurantServiceInterface {
                 .filter(resp -> minScore == null || resp.averageScore() >= minScore)
                 .toList();
     }
+
+
 
 }

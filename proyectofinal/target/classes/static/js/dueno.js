@@ -48,7 +48,6 @@ async function cargarUsuarioYRestaurantes() {
   }
 }
 async function subirRestaurante() {
-  console.log("🚀 Enviando restaurante al backend:");
   const name_restaurant = document.getElementById("nombre_restaurante").value;
   const direction = document.getElementById("direccion").value;
   const phone = document.getElementById("movil").value;
@@ -63,7 +62,7 @@ async function subirRestaurante() {
     return;
   }
   if (!Object.values(TypeEnum).includes(tipo)) {
-    mensaje.textContent = "Tipo inválido.";
+    window.location.href = "cliente.html";
     return;
   }
 
@@ -81,7 +80,6 @@ async function subirRestaurante() {
     password
   };
 
-  console.log("🚀 Enviando restaurante al backend:", modelo);
 
   try {
     const response = await fetch("http://localhost:8080/restaurantes/nuevo", {
@@ -97,6 +95,7 @@ async function subirRestaurante() {
       document.getElementById("form-restaurante").reset();
       cargarUsuarioYRestaurantes();
     } else {
+      window.location.href = "cliente.html";
       const error = await response.text();
       mensaje.textContent = "Error al subir el restaurante: " + error;
     }
