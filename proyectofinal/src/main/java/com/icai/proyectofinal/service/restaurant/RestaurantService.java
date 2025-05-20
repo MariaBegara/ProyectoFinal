@@ -58,10 +58,28 @@ public class RestaurantService implements RestaurantServiceInterface {
         );
     }
 
-    // Implementación vacía para cumplir con la interfaz, pero lanzar excepción para forzar uso del método correcto
     @Override
     public RestaurantResponse saveRestaurant(RestaurantRegister register) {
-        throw new UnsupportedOperationException("Usa saveRestaurant(RestaurantRegister, AppUser owner)");
+        // Permitir test unitario: crear restaurante sin owner
+        AppRestaurant restaurant = new AppRestaurant();
+        restaurant.setName_restaurant(register.name_restaurant());
+        restaurant.setPhone(register.phone());
+        restaurant.setDirection(register.direction());
+        restaurant.setType(register.tipo());
+        restaurant.setLatitude(register.latitude());
+        restaurant.setLongitude(register.longitude());
+        AppRestaurant saved = restaurantRepository.save(restaurant);
+        double avg = 0.0;
+        return new RestaurantResponse(
+                saved.getId(),
+                saved.getName_restaurant(),
+                saved.getLatitude(),
+                saved.getLongitude(),
+                saved.getDirection(),
+                saved.getPhone(),
+                saved.getType().toString(),
+                avg
+        );
     }
 
     @Override

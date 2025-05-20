@@ -12,6 +12,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
+import jakarta.servlet.http.Cookie;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -40,7 +42,8 @@ class EndToEndTest {
                 .param("password", "Password1"))
                 .andExpect(status().isOk())
                 .andReturn();
-        var session = login.getResponse().getHeader("Set-Cookie");
+        var sessionHeader = login.getResponse().getHeader("Set-Cookie");
+        String sessionId = sessionHeader.split("=")[1].split(";")[0];
 
         // 3. Crear restaurante
         String restJson = "{" +
@@ -53,26 +56,48 @@ class EndToEndTest {
         mockMvc.perform(post("/restaurantes/nuevo")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(restJson)
-                .header("Cookie", session))
+                .cookie(new Cookie("session", sessionId)))
                 .andExpect(status().isCreated());
+
+        // 3b. Consultar todos los restaurantes
+        mockMvc.perform(get("/restaurantes/mostrar/todos")
+                .cookie(new Cookie("session", sessionId)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[?(@.name_restaurant == 'E2E Restaurante')]").exists());
 
         // 4. Filtrar restaurantes
         mockMvc.perform(get("/restaurantes/filtrar?tipo=FUSION")
-                .header("Cookie", session))
+                .cookie(new Cookie("session", sessionId)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].name_restaurant").value("E2E Restaurante"));
+                .andExpect(jsonPath("$[?(@.name_restaurant == 'E2E Restaurante')]").exists());
 
         // 5. Crear reseña
         var review = new ReviewRegister("Muy bueno", 5);
+        // Obtener el id del restaurante creado (ya se obtiene más abajo)
+        var restList = mockMvc.perform(get("/restaurantes/filtrar?tipo=FUSION")
+                .cookie(new Cookie("session", sessionId)))
+                .andExpect(status().isOk())
+                .andReturn();
+        String restId = objectMapper.readTree(restList.getResponse().getContentAsString()).get(0).get("id").asText();
         mockMvc.perform(post("/review/nuevo")
+                .param("restauranteId", restId)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(review))
-                .header("Cookie", session))
+                .cookie(new Cookie("session", sessionId)))
                 .andExpect(status().isCreated());
+
+        // 5b. Consultar reseñas del restaurante
+        String restJsonId = "{" +
+                "\"id\":\"" + restId + "\"}";
+        mockMvc.perform(get("/review/filtrar/restaurante")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(restJsonId))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].content").value("Muy bueno"));
 
         // 6. Listar reseñas del usuario
         mockMvc.perform(get("/review/filtrar/usuario")
-                .header("Cookie", session))
+                .cookie(new Cookie("session", sessionId)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].content").value("Muy bueno"));
 
@@ -81,13 +106,21 @@ class EndToEndTest {
         mockMvc.perform(put("/usuario/yo")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(profile))
-                .header("Cookie", session))
+                .cookie(new Cookie("session", sessionId)))
                 .andExpect(status().isOk());
 
         // 8. Eliminar cuenta
         mockMvc.perform(delete("/usuario/yo")
-                .header("Cookie", session))
+                .cookie(new Cookie("session", sessionId)))
                 .andExpect(status().isOk());
+
+        // 9. Logout y comprobar acceso denegado
+        mockMvc.perform(post("/usuario/logout")
+                .cookie(new Cookie("session", sessionId)))
+                .andExpect(status().isNoContent());
+        mockMvc.perform(get("/usuario/yo")
+                .cookie(new Cookie("session", sessionId)))
+                .andExpect(status().isUnauthorized());
     }
 }
 
