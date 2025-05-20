@@ -21,11 +21,10 @@ public class RestaurantService implements RestaurantServiceInterface {
     @Autowired
     private ReviewRepository reviewRepository;
 
-
-    public RestaurantService(RestaurantRepository restaurantRepository) {
+    public RestaurantService(RestaurantRepository restaurantRepository, ReviewRepository reviewRepository) {
         this.restaurantRepository = restaurantRepository;
+        this.reviewRepository = reviewRepository;
     }
-
 
     @Override
     public void saveRestaurant(AppRestaurant restaurant) {
@@ -35,7 +34,6 @@ public class RestaurantService implements RestaurantServiceInterface {
 
     @Override
     public RestaurantResponse saveRestaurant (RestaurantRegister register) {
-
         AppRestaurant restaurant = new AppRestaurant();
         restaurant.setName_restaurant(register.name_restaurant());
         restaurant.setPhone(register.phone());
@@ -43,19 +41,18 @@ public class RestaurantService implements RestaurantServiceInterface {
         restaurant.setType(register.tipo());
         restaurant.setLatitude(register.latitude());
         restaurant.setLongitude(register.longitude());
-        //restaurant.setAvg(avg);
 
-
-        restaurantRepository.save(restaurant);
+        // Usar el objeto devuelto por save para obtener el id y otros datos
+        AppRestaurant saved = restaurantRepository.save(restaurant);
         double avg = 0.0;
         return new RestaurantResponse(
-                restaurant.getId(),
-                restaurant.getName_restaurant(),
-                restaurant.getLatitude(),
-                restaurant.getLongitude(),
-                restaurant.getDirection(),
-                restaurant.getPhone(),
-                restaurant.getType().toString(),
+                saved.getId(),
+                saved.getName_restaurant(),
+                saved.getLatitude(),
+                saved.getLongitude(),
+                saved.getDirection(),
+                saved.getPhone(),
+                saved.getType().toString(),
                 avg
         );
     }
@@ -76,14 +73,22 @@ public class RestaurantService implements RestaurantServiceInterface {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Tipo no válido");
             }
         } else {
-            restaurantes = (List<AppRestaurant>) restaurantRepository.findAll();
+            restaurantes = restaurantRepository.findAll();
         }
 
         return restaurantes.stream()
                 .map(r -> {
                     List<AppReview> reviews = reviewRepository.findByRestaurant(r);
-                    double avg = reviews.isEmpty() ? 0.0 :
-                            reviews.stream().mapToDouble(AppReview::getScore).average().orElse(0.0);
+                    double avg;
+                    if (reviews.isEmpty()) {
+                        avg = 0.0;
+                    } else {
+                        double sum = 0.0;
+                        for (AppReview rev : reviews) {
+                            sum += rev.getScore();
+                        }
+                        avg = sum / reviews.size();
+                    }
                     return new RestaurantResponse(
                             r.getId(),
                             r.getName_restaurant(),

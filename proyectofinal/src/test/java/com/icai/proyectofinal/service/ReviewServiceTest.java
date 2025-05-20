@@ -79,9 +79,15 @@ class ReviewServiceTest {
     void getReviewsUser_devuelveLista() {
         AppUser user = new AppUser();
         user.setId("u4");
+        user.setName("Pepe");
+        AppRestaurant rest = new AppRestaurant();
+        rest.setId("r4");
+        rest.setName_restaurant("Restaurante 4");
         AppReview review = new AppReview();
         review.setContent("Genial");
         review.setScore(4);
+        review.setUser(user);
+        review.setRestaurant(rest);
         when(reviewRepository.findByUser("u4")).thenReturn(List.of(review));
         List<ReviewResponse> result = reviewService.getReviewsUser(user);
         assertEquals(1, result.size());
@@ -92,13 +98,19 @@ class ReviewServiceTest {
     void getReviewsRestaurant_devuelveLista() {
         AppRestaurant rest = new AppRestaurant();
         rest.setId("r5");
+        rest.setName_restaurant("Restaurante 5");
+        AppUser user = new AppUser();
+        user.setId("u5");
+        user.setName("Ana");
         AppReview review = new AppReview();
         review.setContent("Bueno");
         review.setScore(5);
+        review.setUser(user);
+        review.setRestaurant(rest);
+        when(restaurantRepository.findById("r5")).thenReturn(Optional.of(rest));
         when(reviewRepository.findByRestaurant(rest)).thenReturn(List.of(review));
         List<ReviewResponse> result = reviewService.getReviewsRestaurant(rest);
         assertEquals(1, result.size());
         assertEquals("Bueno", result.get(0).content());
     }
 }
-

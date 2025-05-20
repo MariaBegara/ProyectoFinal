@@ -31,9 +31,10 @@ public class ReviewService implements ReviewServiceInterface {
     @Autowired
     private RestaurantRepository restaurantRepository;
 
-
-    public ReviewService(ReviewRepository reviewRepository) {
+    public ReviewService(ReviewRepository reviewRepository, UserRepository userRepository, RestaurantRepository restaurantRepository) {
         this.reviewRepository = reviewRepository;
+        this.userRepository = userRepository;
+        this.restaurantRepository = restaurantRepository;
     }
 
     @Override
@@ -83,6 +84,7 @@ public class ReviewService implements ReviewServiceInterface {
 
         reviews.forEach(review -> {
             AppRestaurant restaurant = review.getRestaurant();
+            if (restaurant == null) return; // Evita NPE si el mock no tiene restaurante
 
             ReviewResponse response = new ReviewResponse(
                     review.getId(),
@@ -162,10 +164,4 @@ public class ReviewService implements ReviewServiceInterface {
 
 
 }
-
-
-
-
-
-
 
