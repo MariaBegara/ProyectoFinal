@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Enviar Reseña</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="js/reseñas.js" defer></script>
+</head>
+<body>
+<header>
+    <h1>Enviar Reseña</h1>
+</header>
+<main class="form-container">
+    <form id="form-reseña">
+        <label for="restaurantId">ID Restaurante:</label>
+        <input type="text" id="restaurantId" name="restaurantId" required />
+
+        <label for="score">Puntuación (1-5):</label>
+        <input type="number" id="score" name="score" min="1" max="5" step="0.1" required />
+
+        <label for="content">Comentario:</label>
+        <textarea id="content" name="content" required></textarea>
+
+        <button type="submit" class="btn">Enviar Reseña</button>
+    </form>
+    <p id="mensaje-reseña" class="info-msg"></p>
+</main>
+<footer>
+    <p><a href="cliente.html">Volver</a></p>
+</footer>
+</body>
+</html>
+
