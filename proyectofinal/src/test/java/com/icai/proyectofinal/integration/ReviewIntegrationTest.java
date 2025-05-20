@@ -1,0 +1,109 @@
+package com.icai.proyectofinal.integration;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.icai.proyectofinal.entity.AppRestaurant;
+import com.icai.proyectofinal.model.Type;
+import com.icai.proyectofinal.model.review.ReviewRegister;
+import com.icai.proyectofinal.model.user.RegisterRequest;
+import com.icai.proyectofinal.repository.RestaurantRepository;
+import com.icai.proyectofinal.repository.UserRepository;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+@SpringBootTest
+@AutoConfigureMockMvc
+@Transactional
+class ReviewIntegrationTest {
+    @Autowired
+    private MockMvc mockMvc;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private RestaurantRepository restaurantRepository;
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    private String session;
+    private String restauranteId;
+
+    @BeforeEach
+    void setUp() throws Exception {
+        userRepository.deleteAll();
+        restaurantRepository.deleteAll();
+        // Registrar usuario y login
+        RegisterRequest req = new RegisterRequest("user1", "user1@test.com", "Password1", "Password1", "Nombre", "USER");
+        mockMvc.perform(post("/usuario/nuevo")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(req)))
+                .andExpect(status().isCreated());
+        var login = mockMvc.perform(post("/usuario/login")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("email", "user1@test.com")
+                .param("password", "Password1"))
+                .andExpect(status().isOk())
+                .andReturn();
+        session = login.getResponse().getHeader("Set-Cookie");
+        // Crear restaurante
+        String restJson = "{" +
+                "\"name_restaurant\":\"Restaurante Review\"," +
+                "\"phone\":\"123456789\"," +
+                "\"tipo\":\"FUSION\"," +
+                "\"direction\":\"Calle Review\"," +
+                "\"latitude\":\"40.0\"," +
+                "\"longitude\":\"-3.0\"}";
+        mockMvc.perform(post("/restaurantes/nuevo")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(restJson))
+                .andExpect(status().isCreated());
+        AppRestaurant rest = restaurantRepository.findAll().get(0);
+        restauranteId = rest.getId();
+    }
+
+    @Test
+    void crearReview_autenticado_devuelve201() throws Exception {
+        ReviewRegister reg = new ReviewRegister("Muy bueno", 5);
+        String json = objectMapper.writeValueAsString(reg);
+        mockMvc.perform(post("/review/nuevo")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json)
+                .header("Cookie", session))
+                .andExpect(status().isCreated());
+    }
+
+    @Test
+    void listarReviewsUsuario_autenticado_devuelveLista() throws Exception {
+        // Crear review primero
+        ReviewRegister reg = new ReviewRegister("Excelente", 5);
+        String json = objectMapper.writeValueAsString(reg);
+        mockMvc.perform(post("/review/nuevo")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json)
+                .header("Cookie", session))
+                .andExpect(status().isCreated());
+        // Listar reviews del usuario
+        mockMvc.perform(get("/review/filtrar/usuario")
+                .header("Cookie", session))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].content").value("Excelente"));
+    }
+
+    @Test
+    void crearReview_noAutenticado_devuelve401() throws Exception {
+        ReviewRegister reg = new ReviewRegister("Sin login", 3);
+        String json = objectMapper.writeValueAsString(reg);
+        mockMvc.perform(post("/review/nuevo")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json))
+                .andExpect(status().isUnauthorized());
+    }
+}
+
