@@ -29,6 +29,7 @@ document.getElementById("form-registro").addEventListener("submit", async functi
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(model),
     });
+    console.log(response);
 
     if (response.status === 201) {
       window.location.href = "login.html";

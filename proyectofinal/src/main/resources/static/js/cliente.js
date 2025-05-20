@@ -1,5 +1,5 @@
-let map;
-let markers = [];
+let map; // variable
+let markers = []; //array para los marcadores
 
 document.addEventListener("DOMContentLoaded", () => {
   initMap();
@@ -11,8 +11,8 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-function initMap() {
-  map = L.map('map').setView([40.4168, -3.7038], 12); // Centro: Madrid
+function initMap() { //funcion para inicializar el mapa
+  map = L.map('map').setView([40.4168, -3.7038], 12); // el centro de madrid
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: 'OpenStreetMap contributors'
@@ -40,7 +40,7 @@ async function cargarRestaurantes() {
     limpiarMarcadores();
 
     restaurantes.forEach(r => {
-      // Añadir a la lista
+      // Añadimos a la lista
       const li = document.createElement("li");
       li.innerHTML = `<strong>${r.name_restaurant}</strong> (${r.type})<br>
                       Dirección: ${r.direction}<br>
