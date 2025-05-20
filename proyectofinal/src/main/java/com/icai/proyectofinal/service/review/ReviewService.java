@@ -4,6 +4,7 @@ import com.icai.proyectofinal.entity.AppRestaurant;
 import com.icai.proyectofinal.entity.AppReview;
 import com.icai.proyectofinal.entity.AppUser;
 import com.icai.proyectofinal.model.review.ReviewRegister;
+import com.icai.proyectofinal.model.review.ReviewRequest;
 import com.icai.proyectofinal.model.review.ReviewResponse;
 import com.icai.proyectofinal.repository.RestaurantRepository;
 import com.icai.proyectofinal.repository.ReviewRepository;
@@ -15,6 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -132,6 +134,31 @@ public class ReviewService implements ReviewServiceInterface {
         return responses;
     }
 
+
+    @Override
+    public ReviewResponse updateReview(ReviewRequest request) {
+        AppReview review = reviewRepository.findById(request.reviewId())
+                .orElseThrow(() -> new NoSuchElementException("Reseña no encontrada"));
+
+        // Actualizar contenido y score
+        review.setContent(request.content());
+        review.setScore(request.score());
+
+        reviewRepository.save(review);
+
+        AppUser user = review.getUser();
+        AppRestaurant restaurant = review.getRestaurant();
+
+        return new ReviewResponse(
+                review.getId(),
+                review.getContent(),
+                review.getScore(),
+                user.getId(),
+                user.getName(),
+                restaurant.getId(),
+                restaurant.getName_restaurant()
+        );
+    }
 
 
 }

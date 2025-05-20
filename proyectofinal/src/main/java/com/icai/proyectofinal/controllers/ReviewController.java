@@ -3,6 +3,9 @@ package com.icai.proyectofinal.controllers;
 import com.icai.proyectofinal.entity.AppRestaurant;
 import com.icai.proyectofinal.entity.AppUser;
 import com.icai.proyectofinal.model.restaurant.RestaurantResponse;
+import com.icai.proyectofinal.model.review.ReviewRequest;
+import com.icai.proyectofinal.model.user.ProfileRequest;
+import com.icai.proyectofinal.model.user.ProfileResponse;
 import com.icai.proyectofinal.service.restaurant.RestaurantService;
 import com.icai.proyectofinal.service.review.ReviewService;
 import com.icai.proyectofinal.model.review.ReviewRegister;
@@ -40,7 +43,7 @@ public class ReviewController {
 
     @GetMapping("/filtrar/usuario")
     public List<ReviewResponse> getFiltered(
-            @RequestParam AppUser usuario) {
+            @RequestBody AppUser usuario) {
         try {
             return reviewService.getReviewsUser(usuario);
         } catch (DataIntegrityViolationException e) {
@@ -50,9 +53,23 @@ public class ReviewController {
         }
     }
 
+
+    @PutMapping("/filtrar/usuario")
+    public ReviewResponse updateReview(
+            @RequestBody ReviewRequest review) {
+        try {
+            return reviewService.updateReview(review);
+        } catch (DataIntegrityViolationException e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage(), e);
+        } catch (NoSuchElementException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
+        }
+    }
+
+
     @GetMapping("/filtrar/restaurante")
     public List<ReviewResponse> getFiltered(
-            @RequestParam AppRestaurant restaurant) {
+            @RequestBody AppRestaurant restaurant) {
         try {
             return reviewService.getReviewsRestaurant(restaurant);
         } catch (DataIntegrityViolationException e) {

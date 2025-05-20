@@ -35,7 +35,9 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public Token login(@RequestParam String email, @RequestParam String password) {
+    public Token login(
+            @RequestParam String email,
+            @RequestParam String password) {
         Token token = userService.login(email, password);
         if (token == null) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Credenciales incorrectas");
