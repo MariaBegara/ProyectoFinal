@@ -82,6 +82,13 @@ public class DataLoader implements CommandLineRunner {
 
                 restaurant.setLatitude(campos[6].trim());
                 restaurant.setLongitude(campos[7].trim());
+                try {
+                    float score = Float.parseFloat(campos[8].trim());
+                    restaurant.setScore(score);
+                } catch (NumberFormatException e) {
+                    System.out.println("Puntuación inválida: " + campos[8] + " → se usará 0.0");
+                    restaurant.setScore(0.0f);
+                }
 
                 restaurantInterface.saveRestaurant(restaurant);
 

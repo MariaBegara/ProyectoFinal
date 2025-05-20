@@ -10,7 +10,7 @@ import java.util.List;
 public interface RestaurantServiceInterface {
     void saveRestaurant(AppRestaurant restaurant);
     RestaurantResponse saveRestaurant(RestaurantRegister register, AppUser owner);
-    RestaurantResponse saveRestaurant(RestaurantRegister register); // solo si lo usas en algún sitio
+    RestaurantResponse saveRestaurant(RestaurantRegister register);
     List<AppRestaurant> getAllRestaurants();
     List<RestaurantResponse> getRestaurants(AppUser user);
     List<RestaurantResponse> getRestaurantsFiltered(String type, Double minScore);

@@ -2,8 +2,8 @@ document.addEventListener("DOMContentLoaded", () => {
   cargarUsuarioYRestaurantes();
 
   document.getElementById("form-restaurante").addEventListener("submit", async function (e) {
-    e.preventDefault();
     await subirRestaurante();
+    e.preventDefault(); //HE CAMBIADO EL ORDEN
   });
 });
 
@@ -48,7 +48,7 @@ async function cargarUsuarioYRestaurantes() {
   }
 }
 async function subirRestaurante() {
-  console.log("🚀 Enviando restaurante al backend:", modelo);
+  console.log("🚀 Enviando restaurante al backend:");
   const name_restaurant = document.getElementById("nombre_restaurante").value;
   const direction = document.getElementById("direccion").value;
   const phone = document.getElementById("movil").value;
@@ -67,14 +67,18 @@ async function subirRestaurante() {
     return;
   }
 
+  let email = "ejemplo@ejemplo.com";
+  let password = "1234";
 
   const modelo = {
     name_restaurant,
     direction,
     phone,
-    tipo,
+    type:tipo,
     latitude,
-    longitude
+    longitude,
+    email,
+    password
   };
 
   console.log("🚀 Enviando restaurante al backend:", modelo);

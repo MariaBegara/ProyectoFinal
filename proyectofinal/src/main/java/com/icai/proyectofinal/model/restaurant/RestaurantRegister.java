@@ -23,7 +23,15 @@ public record RestaurantRegister (
 
     String latitude,
 
-    String longitude
+    String longitude,
+
+
+    //@NotBlank(message = "Debe incluir un email")
+
+    String email,
+
+    //@NotBlank(message = "Debe incluir una contraseña")
+    String password
 
 ){
 }

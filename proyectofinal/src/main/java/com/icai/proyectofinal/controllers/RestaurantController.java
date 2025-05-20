@@ -5,6 +5,7 @@ import com.icai.proyectofinal.model.restaurant.RestaurantRegister;
 import com.icai.proyectofinal.model.restaurant.RestaurantResponse;
 import com.icai.proyectofinal.service.restaurant.RestaurantService;
 import com.icai.proyectofinal.service.user.UserService;
+import com.icai.proyectofinal.entity.Token;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -45,27 +46,63 @@ public class RestaurantController {
         }
         return restaurantService.getRestaurants(user);
     }
-
+/*
     //@PreAuthorize("hasRole('OWNER')")
     @PostMapping("/nuevo")
     @ResponseStatus(HttpStatus.CREATED)
     public RestaurantResponse register(
-
             @CookieValue("session") String sessionId,
             @Valid
             @RequestBody RestaurantRegister register) {
         try {
 
-            System.out.println("📥 Petición recibida para crear restaurante");
-            AppUser owner = userService.authenticate(sessionId);
-            if (owner == null) {
+            (register.email(), register.password());
+            AppUser user = userService.authenticate(token.getId());
+
+            if (user == null) {
                 throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
             }
 
-            return restaurantService.saveRestaurant(register, owner);
+            return restaurantService.saveRestaurant(register, user);
         } catch (DataIntegrityViolationException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage(), e);
         }
     }
+}
+*/
+/*
+    @PostMapping("/nuevo")
+    @ResponseStatus(HttpStatus.CREATED)
+    public RestaurantResponse register(
+            @CookieValue("session") String sessionId,
+            @Valid @RequestBody RestaurantRegister register) {
+
+        System.out.println("📥 Petición recibida para crear restaurante con sesión: " + sessionId);
+
+        AppUser owner = userService.authenticate(sessionId);
+        if (owner == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Sesión no válida");
+        }
+
+        return restaurantService.saveRestaurant(register, owner);
+    }
+*/
+
+
+    @PostMapping("/nuevo")
+    @ResponseStatus(HttpStatus.CREATED)
+    public RestaurantResponse register(
+            @CookieValue("session") String sessionId,
+            @Valid @RequestBody RestaurantRegister register) {
+
+        AppUser user = userService.authenticate(sessionId); // AUTENTICACIÓN CON COOKIE
+
+        if (user == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        }
+
+        return restaurantService.saveRestaurant(register, user);
+    }
 
 }
+

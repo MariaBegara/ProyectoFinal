@@ -6,7 +6,6 @@ import com.icai.proyectofinal.entity.AppUser;
 import com.icai.proyectofinal.model.*;
 import com.icai.proyectofinal.model.restaurant.RestaurantRegister;
 import com.icai.proyectofinal.model.restaurant.RestaurantResponse;
-import com.icai.proyectofinal.model.review.ReviewResponse;
 import com.icai.proyectofinal.repository.RestaurantRepository;
 import com.icai.proyectofinal.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
-import static java.util.stream.Collectors.toList;
 
 @Service
 public class RestaurantService implements RestaurantServiceInterface {
@@ -41,7 +38,7 @@ public class RestaurantService implements RestaurantServiceInterface {
 
     @Override
     public RestaurantResponse saveRestaurant (RestaurantRegister register, AppUser owner) {
-        System.out.println("📥 Petición recibida para crear restaurante");
+
         AppRestaurant restaurant = new AppRestaurant();
         restaurant.setName_restaurant(register.name_restaurant());
         restaurant.setPhone(register.phone());

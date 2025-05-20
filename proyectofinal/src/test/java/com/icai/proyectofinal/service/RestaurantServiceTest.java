@@ -56,7 +56,9 @@ class RestaurantServiceTest {
                 Type.FUSION,
                 "Calle 1",
                 "40.0",
-                "-3.0"
+                "-3.0",
+                "ejemplo@ejemplo.com",
+                "1234"
         );
         AppRestaurant saved = new AppRestaurant();
         saved.setId("1");
