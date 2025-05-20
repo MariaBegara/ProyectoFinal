@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Buscar Restaurantes</title>
+    <link rel="stylesheet" href="styles.css" />
+
+    <link
+            rel="stylesheet"
+            href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="js/cliente.js" defer></script>
+    <script src="js/fondo.js" defer></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+    <!-- voy a usar defer para proteger los js y que no haya problemas por ponerlos en el head. puede haber problemas con null y appendchild y tal  -->
+
+
+</head>
+
+<body>
+
+<header>
+    <h1>Explora restaurantes cercanos</h1>
+</header>
+
+<main>
+    <section class="filtros">
+
+        <form id="filtro-form">
+
+
+            <label for="tipo">Tipo:</label>
+
+            <select id="tipo" name="tipo">
+                <option value="">Todos</option>
+                <option value="ITALIAN">Italiano</option>
+                <option value="JAPANESE">Japonés</option>
+                <option value="FUSION">Fusión</option>
+                <option value="VEGAN">Vegano</option>
+
+            </select>
+
+            <label for="minScore">Puntuación mínima:</label>
+            <input type="number" min="1" max="5" step="0.1" id="minScore" name="minScore" />
+
+            <button type="submit" class="btn">Filtrar</button>
+        </form>
+    </section>
+
+    <section id="map" class="mapa"></section>
+
+    <section>
+        <h2>Resultados:</h2>
+        <ul id="lista-restaurantes"></ul>
+    </section>
+</main>
+
+<footer>
+    <p><a href="index.html">Cerrar sesión</a></p>
+</footer>
+
+</body>
+</html>

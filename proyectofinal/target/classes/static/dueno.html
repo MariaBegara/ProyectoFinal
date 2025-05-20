@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Mis Restaurantes</title>
+    <link rel="stylesheet" href="styles.css" />
+
+    <script src="js/dueno.js" defer></script>
+    <script src="js/duenofondo.js" defer></script>
+</head>
+
+<body>
+
+<header>
+    <h1>DUEÑO DEL RESTAURANTE</h1>
+</header>
+
+<main>
+    <section>
+        <h2>Subir nuevo restaurante</h2>
+        <form id="form-restaurante">
+            <label for="nombre_restaurante">Nombre:</label>
+            <input type="text" id="nombre_restaurante" name="nombre_restaurante" required />
+
+            <label for="direccion">Dirección: </label>
+            <input type="text" id="direccion" name="direccion" required />
+
+            <label for="movil">Teléfono: </label>
+            <input type="text" id="movil" name="movil" required />
+
+            <label for="type">Tipo: </label>
+            <select id="type" name="type" required>
+                <option value="">Selecciona tipo</option>
+                <option value="ITALIAN">Italiano</option>
+                <option value="JAPANESE">Japonés</option>
+                <option value="FUSION">Fusión</option>
+                <!-- falta poner todso los tipos -->
+            </select>
+
+            <label for="latitud">Latitud:</label>
+            <input type="text" id="latitud" name="latitud" required />
+
+            <label for="longitud">Longitud:</label>
+            <input type="text" id="longitud" name="longitud" required />
+
+            <button type="submit" class="btn">Subir restaurante</button>
+        </form>
+        <p id="mensaje-envio" class="info-msg"></p>
+    </section>
+
+    <section>
+        <h2>Mis restaurantes</h2>
+        <ul id="lista-propios"></ul>
+    </section>
+</main>
+
+<footer>
+    <p><a href="index.html">Cerrar sesión</a></p>
+</footer>
+
+
+</body>
+</html>
