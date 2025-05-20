@@ -9,6 +9,10 @@
     <link
             rel="stylesheet"
             href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="js/cliente.js" defer></script>
+    <script src="js/fondo.js" defer></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+    <!-- voy a usar defer para proteger los js y que no haya problemas por ponerlos en el head. puede haber problemas con null y appendchild y tal  -->
 
 
 </head>
@@ -54,16 +58,6 @@
 <footer>
     <p><a href="index.html">Cerrar sesión</a></p>
 </footer>
-//MAPAS
-<script
-        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-></script>
-//CLIENTE JS
-<script src="js/cliente.js"></script>
-//FONDO
-<script>
-    document.body.style.backgroundImage = "url('img/clientes.png')";
-</script>
 
 </body>
 </html>
