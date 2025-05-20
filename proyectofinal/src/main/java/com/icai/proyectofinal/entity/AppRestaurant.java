@@ -35,4 +35,7 @@ public class AppRestaurant {
 
     @Column(nullable = false)
     private String longitude;
+
+    @Column(nullable = false)
+    private float score;
 }

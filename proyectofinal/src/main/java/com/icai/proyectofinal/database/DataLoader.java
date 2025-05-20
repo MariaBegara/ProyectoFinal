@@ -4,7 +4,7 @@ import com.icai.proyectofinal.entity.AppRestaurant;
 import com.icai.proyectofinal.entity.AppUser;
 import com.icai.proyectofinal.model.Type;
 import com.icai.proyectofinal.repository.UserRepository;
-import com.icai.proyectofinal.service.RestaurantInterface;
+import com.icai.proyectofinal.service.restaurant.RestaurantServiceInterface;
 import com.opencsv.CSVReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -19,7 +19,7 @@ import java.util.*;
 public class DataLoader implements CommandLineRunner {
 
     @Autowired
-    private RestaurantInterface restaurantInterface;
+    private RestaurantServiceInterface restaurantInterface;
 
     @Autowired
     private UserRepository userRepository;

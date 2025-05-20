@@ -5,7 +5,7 @@ import com.icai.proyectofinal.entity.Token;
 import com.icai.proyectofinal.model.user.ProfileRequest;
 import com.icai.proyectofinal.model.user.ProfileResponse;
 import com.icai.proyectofinal.model.user.RegisterRequest;
-import com.icai.proyectofinal.service.UserService;
+import com.icai.proyectofinal.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -51,32 +51,32 @@ public class UserController {
         if (appUser == null) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         return userService.profile(appUser);
     }
+
     @PutMapping("/yo")
     public ProfileResponse updateProfile(
-            @CookieValue(value = "session", required = true) String session,
+            @CookieValue(value = "session") String session,
             @RequestBody ProfileRequest profile) {
-
         AppUser appUser = userService.authenticate(session);
         if (appUser == null) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
 
         return userService.updateProfile(appUser, profile);
     }
+
+    @PostMapping("/logout")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void logout(
+            @CookieValue(value = "session") String session) {
+        userService.logout(session);
+    }
+
     @DeleteMapping("/yo")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@CookieValue(value = "session", required = true) String session) {
+    public void delete(
+            @CookieValue(value = "session") String session) {
         AppUser appUser = userService.authenticate(session);
         if (appUser == null) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
 
         userService.delete(appUser);
     }
-
-    @PostMapping("/logout")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void logout(@CookieValue(value = "session", required = true) String session) {
-        userService.logout(session);
-    }
-
-
-
 
 }

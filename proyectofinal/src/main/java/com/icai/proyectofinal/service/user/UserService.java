@@ -1,4 +1,4 @@
-package com.icai.proyectofinal.service;
+package com.icai.proyectofinal.service.user;
 
 import com.icai.proyectofinal.Hashing;
 import com.icai.proyectofinal.entity.Token;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class UserService implements UserServiceInterface{
+public class UserService implements UserServiceInterface {
 
     @Autowired
     private UserRepository userRepository; // es necesario para poder utilizar los métodos de AppUserRepository

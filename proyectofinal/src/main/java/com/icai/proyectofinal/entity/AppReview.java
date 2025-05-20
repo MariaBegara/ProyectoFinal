@@ -27,6 +27,6 @@ public class AppReview {
     private String content;
 
     @Column(nullable = false)
-    private String score; // entre 1 y 5
+    private float score; // entre 1 y 5
 
 }

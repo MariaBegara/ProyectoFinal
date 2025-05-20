@@ -1,4 +1,4 @@
-package com.icai.proyectofinal.service;
+package com.icai.proyectofinal.service.restaurant;
 
 import com.icai.proyectofinal.entity.AppRestaurant;
 import com.icai.proyectofinal.entity.AppReview;
@@ -15,57 +15,17 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @Service
-public class RestaurantService implements RestaurantInterface {
+public class RestaurantService implements RestaurantServiceInterface {
     @Autowired
     private RestaurantRepository restaurantRepository;
     @Autowired
     private ReviewRepository reviewRepository;
 
+
     public RestaurantService(RestaurantRepository restaurantRepository) {
         this.restaurantRepository = restaurantRepository;
     }
 
-    @Override
-    public List<AppRestaurant> getAllRestaurants() {
-        return (List<AppRestaurant>) restaurantRepository.findAll();
-    }
-
-    @Override
-    public List<AppRestaurant> getRestaurantsByType(String type) {
-        return restaurantRepository.findByType(Type.valueOf(type));
-    }
-    public List<RestaurantResponse> getRestaurantsFiltered(String type, Double minScore) {
-        List<AppRestaurant> restaurantes;
-
-        if (type != null) {
-            try {
-                restaurantes = restaurantRepository.findByType(Type.valueOf(type.toUpperCase()));
-            } catch (IllegalArgumentException e) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Tipo no válido");
-            }
-        } else {
-            restaurantes = (List<AppRestaurant>) restaurantRepository.findAll();
-        }
-
-        return restaurantes.stream()
-                .map(r -> {
-                    List<AppReview> reviews = reviewRepository.findByRestaurant(r);
-                    double avg = reviews.isEmpty() ? 0.0 :
-                            reviews.stream().mapToInt(AppReview::getScore).average().orElse(0.0);
-                    return new RestaurantResponse(
-                            r.getId(),
-                            r.getName_restaurant(),
-                            r.getLatitude(),
-                            r.getLongitude(),
-                            r.getDirection(),
-                            r.getPhone(),
-                            r.getType().toString(),
-                            avg
-                    );
-                })
-                .filter(resp -> minScore == null || resp.averageScore() >= minScore)
-                .toList();
-    }
 
     @Override
     public void saveRestaurant(AppRestaurant restaurant) {
@@ -98,6 +58,45 @@ public class RestaurantService implements RestaurantInterface {
                 restaurant.getType().toString(),
                 avg
         );
+    }
+
+    @Override
+    public List<AppRestaurant> getAllRestaurants() {
+        return (List<AppRestaurant>) restaurantRepository.findAll();
+    }
+
+    @Override
+    public List<RestaurantResponse> getRestaurantsFiltered(String type, Double minScore) {
+        List<AppRestaurant> restaurantes;
+
+        if (type != null) {
+            try {
+                restaurantes = restaurantRepository.findByType(Type.valueOf(type.toUpperCase()));
+            } catch (IllegalArgumentException e) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Tipo no válido");
+            }
+        } else {
+            restaurantes = (List<AppRestaurant>) restaurantRepository.findAll();
+        }
+
+        return restaurantes.stream()
+                .map(r -> {
+                    List<AppReview> reviews = reviewRepository.findByRestaurant(r);
+                    double avg = reviews.isEmpty() ? 0.0 :
+                            reviews.stream().mapToDouble(AppReview::getScore).average().orElse(0.0);
+                    return new RestaurantResponse(
+                            r.getId(),
+                            r.getName_restaurant(),
+                            r.getLatitude(),
+                            r.getLongitude(),
+                            r.getDirection(),
+                            r.getPhone(),
+                            r.getType().toString(),
+                            avg
+                    );
+                })
+                .filter(resp -> minScore == null || resp.averageScore() >= minScore)
+                .toList();
     }
 
 }

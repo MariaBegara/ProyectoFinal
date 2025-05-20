@@ -2,7 +2,7 @@ package com.icai.proyectofinal.controllers;
 
 import com.icai.proyectofinal.model.restaurant.RestaurantRegister;
 import com.icai.proyectofinal.model.restaurant.RestaurantResponse;
-import com.icai.proyectofinal.service.RestaurantService;
+import com.icai.proyectofinal.service.restaurant.RestaurantService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -18,11 +18,14 @@ public class RestaurantController {
     @Autowired
     private RestaurantService restaurantService;
 
-    @GetMapping("/mostrarlista")
+    @GetMapping("/mostrar/todos")
     public List<RestaurantResponse> getAll() {
         return restaurantService.getRestaurantsFiltered(null, null);
     }
 
+    /*
+    /restaurantes/filtrar?tipo=FUSION&minScore=4.0
+    */
     @GetMapping("/filtrar")
     public List<RestaurantResponse> getFiltered(
             @RequestParam(required = false) String tipo,
@@ -41,11 +44,5 @@ public class RestaurantController {
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage(), e);
         }
     }
-
-    /*
-    /restaurantes/filtrar?tipo=FUSION&minScore=4.0
-    */
-
-
 
 }

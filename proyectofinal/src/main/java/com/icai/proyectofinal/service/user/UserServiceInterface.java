@@ -1,4 +1,4 @@
-package com.icai.proyectofinal.service;
+package com.icai.proyectofinal.service.user;
 
 import com.icai.proyectofinal.entity.AppUser;
 import com.icai.proyectofinal.entity.Token;
