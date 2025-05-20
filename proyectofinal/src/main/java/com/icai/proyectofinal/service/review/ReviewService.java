@@ -77,11 +77,11 @@ public class ReviewService implements ReviewServiceInterface {
 
     @Override
     public List<ReviewResponse> getReviewsUser(AppUser appUser) {
-        List<AppReview> reviews = reviewRepository.findByUser(appUser.getId());
+        List<AppReview> reviews = reviewRepository.findByUser_Id(appUser.getId());
 
         List<ReviewResponse> responses = new ArrayList<>();
 
-        reviews.forEach(review -> {
+        for (AppReview review : reviews) {
             AppRestaurant restaurant = review.getRestaurant();
 
             ReviewResponse response = new ReviewResponse(
@@ -95,10 +95,11 @@ public class ReviewService implements ReviewServiceInterface {
             );
 
             responses.add(response);
-        });
+        }
 
         return responses;
     }
+
 
 
     @Override

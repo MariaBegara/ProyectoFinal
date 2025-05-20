@@ -1,27 +1,305 @@
-id,id_owner,name_restaurant,direction,phone,type,latitude,longitude
-id-1,user-1,Medea,"Rios Rosas, 45",910 81 97 71,FUSION,40.4425703,-3.6976294
-id-2,user-2,Enklima,"Ferraz, 36",911 166 991,OTHER,40.4261602,-3.7171611
-id-3,user-3,Sasha Boom,"Raimundo Fernandez Villaverde, 26",911 995 010,FUSION,40.4464414,-3.6956129
-id-4,user-1,Lakasa,"Plaza Descubridor Diego de Ordas, 1",915 338 715,OTHER,40.4408805,-3.7007791
-id-5,user-2,Ronda 14,"General Oraa, 25",914 11 17 30,FUSION,40.4363042,-3.6844844
-id-6,user-3,A barra,"Pinar, 15",910 210 061,OTHER,40.4386539,-3.6878292
-id-7,user-1,Cilindro,"Don Ramon de la Cruz, 83",910 66 33 56,FUSION,40.4287541,-3.6748719
-id-8,user-2,Cebo,"Carrera de San Jeronimo, 34",917 877 780,FUSION,40.4164051,-3.6985954
-id-9,user-3,Etimo,"Ayala, 27",913 75 98 83,OTHER,40.4278334,-3.6846048
-id-10,user-1,Olive Torrelodones,"Camino de Valladolid, 28 (Torrelodones)",918 59 14 39,OTHER,40.5763092,-3.9317619
-id-11,user-2,Raza 7,"Galeon, 27",917 47 45 67,OTHER,40.4572571,-3.5839829
-id-12,user-3,Medusa,"Barco, 27",910 226 057,FUSION,40.4224005,-3.702582
-id-13,user-1,El Filandon,"Carretera de El Pardo-Fuencarral, km 1,9",917 34 38 26,OTHER,40.42526,-3.69063
-id-14,user-2,Shalakabula,"Don Ramon de la Cruz, 72",918 280 043,OTHER,40.4286051,-3.6748495
-id-15,user-3,Bacira,"Castillo, 16",918 66 40 30,FUSION,40.42526,-3.69063
-id-16,user-1,Latasia,"Paseo de la Castellana, 115",915 559 333,FUSION,40.4568559,-3.6907533
-id-17,user-2,La Primera,"Gran Via, 1",910 520 620,OTHER,40.4191077,-3.6978657
-id-18,user-3,Cuatro de Ocho,"San Mateo, 21",914 47 42 25,OTHER,40.4261262,-3.6981877
-id-19,user-1,Alright,"Pedro Rico, 41",912 190 725,AMERICAN,40.4846861,-3.6964742
-id-20,user-2,Origen Taberna,"Juan Alvarez Mendizabal, 44",912 240 559,OTHER,40.4265674,-3.7163351
-id-21,user-3,Araldo,"Madrazo, 5",911 38 41 65,ITALIAN,40.4176169,-3.6980635
-id-22,user-1,Surtopia,"Nunez de Balboa, 106",915 63 03 64,OTHER,40.4353719,-3.6818311
-id-23,user-2,Membibre,"Guzman El Bueno, 40",915 43 31 48,OTHER,40.4349117,-3.7130004
-id-24,user-3,Ramses,"Plaza de la Independencia, 4",914 35 16 66,OTHER,40.4207805,-3.6891809
-id-25,user-1,Cannibal Raw Bar,"Almirante, 12",910 268 794,FUSION,40.4224409,-3.6942202
-id-26,user-2,Sr. Ito Lab,"Trafalgar, 7",918 61 61 26,OTHER,40.4312007,-3.7005577
+id,id_owner,name_restaurant,direction,phone,type,latitude,longitude,score
+id-1,user-1,Medea,"Rios Rosas, 45",910 81 97 71,FUSION,40.4425703,-3.6976294,5.0
+id-2,user-2,Enklima,"Ferraz, 36",911 166 991,OTHER,40.4261602,-3.7171611,5.0
+id-3,user-3,Sasha Boom,"Raimundo Fernandez Villaverde, 26",911 995 010,FUSION,40.4464414,-3.6956129,5.0
+id-4,user-1,Lakasa,"Plaza Descubridor Diego de Ordas, 1",915 338 715,OTHER,40.4408805,-3.7007791,5.0
+id-5,user-2,Ronda 14,"General Oraa, 25",914 11 17 30,FUSION,40.4363042,-3.6844844,5.0
+id-6,user-3,A barra,"Pinar, 15",910 210 061,OTHER,40.4386539,-3.6878292,5.0
+id-7,user-1,Cilindro,"Don Ramon de la Cruz, 83",910 66 33 56,FUSION,40.4287541,-3.6748719,5.0
+id-8,user-2,Cebo,"Carrera de San Jeronimo, 34",917 877 780,FUSION,40.4164051,-3.6985954,4.75
+id-9,user-3,Etimo,"Ayala, 27",913 75 98 83,OTHER,40.4278334,-3.6846048, 4.75
+id-10,user-1,Olive Torrelodones,"Camino de Valladolid, 28 (Torrelodones)",918 59 14 39,OTHER,40.5763092,-3.9317619,4.75
+id-11,user-2,Raza 7,"Galeon, 27",917 47 45 67,OTHER,40.4572571,-3.5839829,4.75
+id-12,user-3,Medusa,"Barco, 27",910 226 057,FUSION,40.4224005,-3.702582,4.75
+id-13,user-1,El Filandon,"Carretera de El Pardo-Fuencarral, km 1,9",917 34 38 26,OTHER,40.42526,-3.69063,4.75
+id-14,user-2,Shalakabula,"Don Ramon de la Cruz, 72",918 280 043,OTHER,40.4286051,-3.6748495,4.75
+id-15,user-3,Bacira,"Castillo, 16",918 66 40 30,FUSION,40.42526,-3.69063,4.75
+id-16,user-1,Latasia,"Paseo de la Castellana, 115",915 559 333,FUSION,40.4568559,-3.6907533,4.75
+id-17,user-2,La Primera,"Gran Via, 1",910 520 620,OTHER,40.4191077,-3.6978657,4.75
+id-18,user-3,Cuatro de Ocho,"San Mateo, 21",914 47 42 25,OTHER,40.4261262,-3.6981877,4.75
+id-19,user-1,Alright,"Pedro Rico, 41",912 190 725,AMERICAN,40.4846861,-3.6964742,4.75
+id-20,user-2,Origen Taberna,"Juan Alvarez Mendizabal, 44",912 240 559,OTHER,40.4265674,-3.7163351,4.75
+id-21,user-3,Araldo,"Madrazo, 5",911 38 41 65,ITALIAN,40.4176169,-3.6980635,4.75
+id-22,user-1,Surtopia,"Nunez de Balboa, 106",915 63 03 64,OTHER,40.4353719,-3.6818311,4.5
+id-23,user-2,Membibre,"Guzman El Bueno, 40",915 43 31 48,OTHER,40.4349117,-3.7130004,4.5
+id-24,user-3,Ramses,"Plaza de la Independencia, 4",914 35 16 66,OTHER,40.4207805,-3.6891809,4.5
+id-25,user-1,Cannibal Raw Bar,"Almirante, 12",910 268 794,FUSION,40.4224409,-3.6942202,4.5
+id-26,user-2,Sr. Ito Lab,"Trafalgar, 7",918 61 61 26,OTHER,40.4312007,-3.7005577,4.5
+id-26,user-2,Sr. Ito Lab,"Trafalgar, 7",918 61 61 26,OTHER,40.4312007,-3.7005577,4.5
+id-28,user-1,Bache,"Rodriguez San Pedro, 2",918 28 95 88,OTHER,40.4315637,-3.7055431,4.5
+id-29,user-2,Media Racion,"Beneficencia, 15",914 475 111,OTHER,40.4263138,-3.6988394,4.5
+id-30,user-3,Taberna Los Gallos,"Puigcerda, 4 (Callejon de Jorge Juan)",914 31 06 47,OTHER,40.42526,-3.69063,4.5
+id-31,user-1,Cachivache Taberna,"Serrano, 221",917 524 176,OTHER,40.4546446,-3.6781068,4.5
+id-32,user-2,Yakuza Sushi,"Maria de Molina, 16",910 60 94 58,OTHER,40.4373606,-3.6783147,4.5
+id-33,user-3,Gastromaquia,"Pelayo, 6",915 22 64 13,OTHER,40.4219327,-3.680441,4.5
+id-34,user-1,Lambuzo,"Ponzano, 8",619 42 64 23,OTHER,40.442475,-3.6990086,4.5
+id-35,user-2,Duck and Sushi,"Sor Angela de la Cruz, 22 ",915 79 17 36,OTHER,40.4599147,-3.6951751,4.5
+id-36,user-3,Raro Rare,"Barcelo, 5",682 050 304,OTHER,40.387476,-3.7393433,4.5
+id-37,user-1,Pulcinella,"Regueros, 7",913 19 73 63,ITALIAN,40.4246015,-3.6965407,4.5
+id-38,user-2,La Tragantua,"Calle de la Veronica, 4",656 323 796,OTHER,40.4117567,-3.6954293, 4.5
+id-39,user-3,80o,"Manuela Malasana, 10",914 45 83 51,OTHER,40.4287119,-3.703588, 4.5
+id-40,user-1,El Grosso Napoletano,"Santa Engracia, 48",911 70 46 53,ITALIAN,40.4339523,-3.6981338,4.5
+id-41,user-2,Cacao Restobar,"Moratin, 19",910 529 634,OTHER,40.4124347,-3.6970394,4.5
+id-42,user-3,Mu! El Placer de la Carne,"Chinchilla, 3",912 19 33 59,OTHER,40.4194576,-3.7039464,4.5
+id-43,user-1,Komeya,"Porvenir, 16",912 10 10 11,OTHER,40.557971,-4.0150836, 4.5
+id-44,user-2,El Paraguas,"Jorge Juan, 16",914 31 59 50,OTHER,40.42526,-3.69063,4.25
+id-45,user-3,Asador Donostiarra,"Infanta Mercedes, 79",915 79 08 71,OTHER,40.4617774,-3.6957845,4.25
+id-46,user-1,Lua,"Eduardo Dato, 5",913 95 28 53,OTHER,40.4328894,-3.6957761, 4.5
+id-47,user-2,Fuego,"Hermanos Becquer, 5 ",910 515 811,OTHER,40.4363457,-3.6878165,4.25
+id-48,user-3,El Picaporte Bistro,"Garcia de Paredes, 51",910 55 81 54,OTHER,40.4366697,-3.6963287, 4.5
+id-49,user-1,Dantxari,"Ventura Rodriguez, 8",915 423 524,OTHER,40.4253932,-3.7138709,4.25
+id-50,user-2,St. James,"Ortega y Gasset, 83",914 02 15 83,OTHER,40.4298587,-3.6717948,4.25
+id-51,user-3,Bibo Madrid,"Paseo de la Castellana, 52",918 05 25 56,OTHER,40.4356993,-3.6882216,4.25
+id-52,user-1,Los Arroces de Segis,"Infanta Mercedes, 109",915 71 56 22,OTHER,40.4639317,-3.6933227,4.25
+id-53,user-2,Bibo by Dani Garcia,"Paseo de la Castellana, 52",918 05 25 56,OTHER,40.4356993,-3.6882216,4.25
+id-54,user-3,Madame Sushita,"Paseo de la Habana, 15",918 31 55 41,OTHER,40.4499906,-3.6881392,4.25
+id-55,user-1,Ultramarinos Quintin,"Jorge Juan, 17",917 86 46 24,OTHER,40.42526,-3.69063, 4.25
+id-56,user-2,Restaurante Bosque,"Recoletos, 6",910 69 40 07,OTHER,40.4207956,-3.6918325,4.25
+id-57,user-3,Goizeko Kabi,"Comandante Zorita, 37",915 33 01 85,OTHER,40.4505031,-3.6983858,4.25
+id-58,user-1,Asador Guetaria,"Comandante Zorita, 8",915 546 632,OTHER,40.447544,-3.6984193,4.25
+id-59,user-2,Charlie Champagne,"Segovia, 17",913 65 18 45,OTHER,40.4116375,-3.7176728,4.25
+id-60,user-3,La Tasqueria,"Duque de Sesto, 48",914 51 10 00,OTHER,40.4222271,-3.6735107, 4.25
+id-61,user-1,Tandory Station,"Ortega y Gasset, 89",914 01 22 28,OTHER,40.4298214,-3.6710408,4.25
+id-62,user-2,La Bodega de los secretos,"San Blas, 4",914 29 03 96,OTHER,40.4221508,-3.6091409,4.25
+id-63,user-3,Kuoco 360 Food,"San Bartolome, 14",911 995 377,OTHER,40.4219657,-3.6983793,4.25
+id-64,user-1,Pink Monkey,"Monte Esquinza, 15",913 10 52 72,FUSION,40.42526,-3.69063,4.25
+id-65,user-2,Oribu Gastrobar,"Barquillo, 10",915 24 03 17,FUSION,40.4204843,-3.6955939,4.25
+id-66,user-3,Treze,"General Pardinas, 36",915 410 717,OTHER,40.4323507,-3.6780204,4.25
+id-67,user-1,Peyote San,"Marques de la Ensenada, 16",910 882 212,FUSION,40.4251896,-3.692052,4.25
+id-68,user-2,Toga,"Juanelo, 23",910 414 439,FUSION,40.4110908,-3.7066278,4.25
+id-69,user-3,La Pagoda,"Felix Boix, 7",913 45 40 47,FUSION,40.4634404,-3.6876017,4.25
+id-70,user-1,Mercato Ballaro,"Santa Engracia, 24",913 084 966,ITALIAN,40.4402412,-3.7010059,4.25
+id-71,user-2,Mawey,"Olid, 6",910 11 71 06,MEXICAN,40.4317789,-3.702372,4.25
+id-72,user-3,A Vanvera,"Zurbano, 85",918 25 66 88,ITALIAN,40.4397914,-3.6928346,4.25
+id-73,user-1,Seduccion a la carta,"Infanta Mercedes, 31",915 99 64 96,OTHER,40.4548382,-3.6989321,4.25
+id-74,user-2,La Gabinoteca,"Fernandez de la Hoz, 53",913 99 15 00,OTHER,40.4389209,-3.6946897,4.25
+id-75,user-3,Inclan Brutal Bar,"Alvarez de Gato, 4",910 238 038 ,OTHER,40.4150858,-3.7018637,4.25
+id-76,user-1,La Tape,"San Bernardo, 88",915 930 422,OTHER,40.4288389,-3.7058704,4.25
+id-77,user-2,El Canadiense,"Carranza, 10",669 46 58 86,OTHER,40.5902063,-3.9907167,4.25
+id-78,user-3,Sublime Dreams Food,"Concepcion Jeronima, 28",910 22 41 97,OTHER,40.4137955,-3.7070496,4.25
+id-79,user-1,Trattoria Manzoni,"Breton de los Herreros, 13",914 41 58 52,ITALIAN,40.4394538,-3.696143,4.25
+id-80,user-2,Sala de Despiece,"Ponzano, 11",917 52 61 06,OTHER,40.4379178,-3.6994954,4.25
+id-81,user-3,La Tomata,"Alburquerque, 13",910 18 84 06,MEXICAN,40.4311766,-3.7020589,4.25
+id-82,user-1,Terraza Cibeles,"Plaza de Cibeles, 1",915 23 14 54,OTHER,40.4194196,-3.6925377,4.25
+id-83,user-2,DSTAGE,"Regueros, 8",917 02 15 86,OTHER,40.4246365,-3.6963848,4.25
+id-84,user-3,Aviburger,"San Bernardo, 97",910 58 06 78,OTHER,40.4305398,-3.7056806,4.25
+id-84,user-3,Aviburger,"San Bernardo, 97",910 58 06 78,OTHER,40.4305398,-3.7056806,4.25
+id-86,user-2,Tates ,"Alonso Cano, 53",914 51 55 52,OTHER,40.4401955,-3.6977501,4.25
+id-87,user-3,Nimu Barquillo,"Barquillo, 40",910 88 88 98,OTHER,40.4239723,-3.6953773,4.25
+id-88,user-1,Punto Mx,"General Pardinas, 40",914 02 22 26,MEXICAN,40.4276037,-3.6783379,4.25
+id-89,user-2,Puerta 57,Estadio Bernabeu (puerta 57),914 57 33 61,OTHER,40.42526,-3.69063,4.0
+id-90,user-3,De la Riva,"Cochabamba, 13",914 58 89 54,OTHER,40.4558857,-3.6798791,4.0
+id-91,user-1,Ten con Ten,"Ayala, 6",915 75 92 54,OTHER,40.4278553,-3.6884987,4.0
+id-92,user-2,Crudito,"Redondilla, 7",660 474 059,FUSION,40.4125003,-3.7124762,4.0
+id-93,user-3,La Bienaparecida,"Jorge Juan, 8",911 593 939,OTHER,40.42526,-3.69063,4.0
+id-94,user-1,OXs,"Juan Ramon Jimenez, 11",914 58 19 03,OTHER,40.5110973,-3.3534365,4.0
+id-95,user-2,Comala,Plaza de la Lealtad,915 047 827,MEXICAN,40.4164052,-3.6928793,4.0
+id-96,user-3,La Malaje ,"Relatores, 20",910 813 031,OTHER,40.4127689,-3.7034366,4.0
+id-97,user-1,La Jefa,"Recoletos, 14",916 21 76 74,OTHER,40.422402,-3.6909051,4.0
+id-98,user-2,La Mama,"Maria Panes, 6",910 61 97 64,OTHER,40.444556,-3.6965228,4.0
+id-99,user-3,Quintana 30,"Quintana, 30",915 42 65 20,OTHER,40.4271889,-3.7191981,4.0
+id-100,user-1,Ordago,"Sancho Davila, 15",913 56 71 85,OTHER,40.4274092,-3.6617042,4.0
+id-101,user-2,La Vaqueria Montanesa,"Blanca de Navarra, 8",911 38 71 06,OTHER,40.4287956,-3.6927809,4.0
+id-102,user-3,Atlantico,"Velazquez, 31",914 356 316,OTHER,40.4249854,-3.6843698,4.0
+id-103,user-1,La Cocina de San Anton (5js),"Augusto Figueroa, 24",913 300 294,OTHER,40.4218524,-3.6977535,4.0
+id-104,user-2,Tiradito&Pisco Bar,"Conde Duque, 13",915 417 876,OTHER,40.4289511,-3.7095545,4.0
+id-105,user-3,Macarela,"Monte Esquinza, 39",915 99 11 29,OTHER,40.42526,-3.69063,4.0
+id-106,user-1,Tres Bocas,"Gaztambide, 11",917 52 55 64,OTHER,40.431527,-3.715828,4.0
+id-107,user-2,Namit Gastrobar,"Rafael Calvo,  38",913 08 44 62,OTHER,40.4339659,-3.6917167,4.0
+id-108,user-3,La Bobia,"San Millan, 3",917 37 60 30,OTHER,40.4112813,-3.7076261,4.0
+id-109,user-1,La T Gastrobar,"Molino de viento, 4",915 311 406,OTHER,40.4232911,-3.703706,4.0
+id-110,user-2,Midtown,"Paseo de la Habana, 11",912 50 00 06,OTHER,40.4496349,-3.6890949,4.0
+id-111,user-3,La Contrasena,"Ponzano, 6",663 89 28 20,OTHER,40.4372171,-3.6993398,4.0
+id-112,user-1,Habanera,"Genova, 28",917 37 20 17,OTHER,40.425343,-3.6917581,4.0
+id-113,user-2,Noname,"Alberto Aguilera, 5",670 088 427,FUSION,40.4296388,-3.7078443,4.0
+id-114,user-3,Bosco de lobos,"Hortaleza, 63",915 24 94 64,ITALIAN,40.4239309,-3.6987122,4.0
+id-115,user-1,Yakitoro,"Reina, 41",917 37 14 41,OTHER,40.4464512,-3.7113341,4.0
+id-116,user-2,La Cervecera,"Calle de Embajadores, 183",916 494 098,OTHER,40.3768416,-3.6829009,4.0
+id-117,user-3,Fass,"Rodriguez Marin, 84",915 637 447,OTHER,40.4513087,-3.6786058,4.0
+id-118,user-1,Cortezo Yatai Market,"Doctor Cortezo, 10",No admite reservas,OTHER,40.4130826,-3.7039917,4.0
+id-119,user-2,La Cana,"Alburquerque, 8",911 25 00 20,OTHER,40.4310882,-3.7018171,4.0
+id-120,user-3,Metro Bistro,"Evaristo San Miguel, 21",915 429 521,OTHER,40.4257077,-3.7165143,4.0
+id-121,user-1,Ojala,"San Andres, 1",915 23 27 47,OTHER,40.2824512,-3.7970114,4.0
+id-122,user-2,Caramba,"Alcala, 19",910 882 898,OTHER,40.4179496,-3.6998271,4.0
+id-123,user-3,Casa Jaguar,"Canos del Peral, 9",910 24 57 12,FUSION,40.4189909,-3.7085092,4.0
+id-124,user-1,La Bistroteca,"Espartinas, 7",914 258 601,FUSION,40.4243427,-3.6790764,4.0
+id-125,user-2,Burn Out,"Fuencarral, 148",912 680 938,OTHER,40.4324653,-3.7036746,4.0
+id-126,user-3,Fina Catalina,"Castello, 1",911 109 767,ITALIAN,40.42526,-3.69063,4.0
+id-127,user-1,Fuoko,"Emilio Carrere, 9",914 216 743,ITALIAN,40.4310939,-3.7096943,4.0
+id-128,user-2,Lamucca,"Almagro, 3",915 21 00 00,ITALIAN,40.4766878,-3.6960914,4.0
+id-129,user-3,Harakiri,"Camino de Sacedon, 5",916 165 822,OTHER,40.357474,-3.9078645,4.0
+id-130,user-1,Kamikaze,"Argensola, 7",910 810 056,OTHER,40.4250697,-3.6951729,4.0
+id-131,user-2,Alcaravea,"Gaztambide, 56",912 838 005,OTHER,40.4381918,-3.7152002,4.0
+id-132,user-3,Flash Flash,"Nunez de Balboa, 75",915 75 10 10,OTHER,40.4306795,-3.6824249,4.0
+id-133,user-1,Luxury,"Sandoval, 18",917 274 287,OTHER,40.4302666,-3.704908,4.0
+id-134,user-2,La Sucursal,"Sandoval, 4",911 108 132,OTHER,40.4301239,-3.70331,4.0
+id-135,user-3,Paperboy Perrito Bar,"Luchana, 11",916 492 086,AMERICAN,40.4298943,-3.7011109,4.0
+id-136,user-1,Bazaar,"Libertad, 21",915 23 39 05,OTHER,40.42526,-3.69063,4.0
+id-137,user-2,New York Burger,"Paseo de la Castellana, 89",917 70 79 82,OTHER,40.4499983,-3.6918852,4.0
+id-138,user-3,Goiko Grill,"Princesa, 26",910 60 39 29,OTHER,40.4866667,-3.6548195,4.0
+id-139,user-1,Fitz Burger,"Gabriel Lobo, 20",910 51 78 75,OTHER,40.4434826,-3.6798467,4.0
+id-140,user-2,Public,"Desengano, 11",915 22 06 70,OTHER,40.420977,-3.7040369,4.0
+id-141,user-3,Nuestro Mar,"Luchana, 35",911 29 59 45,OTHER,40.4322289,-3.6983324,4.0
+id-142,user-1,Toy Panda,"Espiritu Santo, 7",917 72 80 28,OTHER,40.425032,-3.7026053,4.0
+id-143,user-2,Terra Cotta,"Melendez Valdes, 51",911 1325 62,ITALIAN,40.4329948,-3.7149773,4.0
+id-144,user-3,Porto Rubaiyat,"Juan Ramon Jimenez, 37",913 59 10 00,OTHER,40.4607672,-3.6867845,3.75
+id-145,user-1,El Barrill,"Goya, 86",915 783 998,OTHER,40.4250281,-3.6744192,3.75
+id-146,user-2,El Gran Barril,"Goya, 107",914 31 22 10,OTHER,40.4250281,-3.6744192,3.75
+id-147,user-3,Tartan Roof,Azotea Circulo de Bellas Artes,915 30 17 61,FUSION,40.4182665,-3.6963625,3.75
+id-148,user-1,Chow Chow,"Avenida de Concha Espina, 55",917 72 91 23,FUSION,40.4521289,-3.6807955,3.75
+id-149,user-2,La Potxola Taberna,"San Mateo, 19",655 55 59 91,OTHER,40.4260913,-3.6982608,3.75
+id-150,user-3,Sexto,"Fernando VI, 6",608 566 104,OTHER,40.4252301,-3.6963162,3.75
+id-151,user-1,Grean Tea (Hotel Palace),"Plaza de las Cortes, 7",914 29 14 57,OTHER,40.4154544,-3.6958024,3.75
+id-152,user-2,Teckel,"Concha Espina, 55",915 996 400,OTHER,40.4521289,-3.6807955,3.75
+id-153,user-3,Mercado de San Anton,"Augusto Figueroa, 24",913 30 07 30,OTHER,40.4218524,-3.6977535,3.75
+id-154,user-1,Mercado de San Miguel,"Plaza de San Miguel, s/n",915 42 49 36,OTHER,40.4154342,-3.7093388,3.75
+id-155,user-2,Casa Ciriaco,"Mayor, 84",915 48 06 20,OTHER,40.42526,-3.69063,3.75
+id-156,user-3,Jose Luis,"Paseo de la Habana, 4",915 62 31 18,OTHER,40.4474802,-3.6902476,3.75
+id-157,user-1,La Ancha,"Principe de Vergara, 204",915 638 977,OTHER,40.4282213,-3.6798439,3.75
+id-158,user-2,La Catedral de Zamora,"Santa Engracia, 22",914 473 961,OTHER,40.4402412,-3.7010059,3.75
+id-159,user-3,Zen Market,"Concha Espina, 1",914 57 18 73,OTHER,40.4530225,-3.687422,3.75
+id-160,user-1,La Giralda,"Hartzenbusch, 12",914 45 77 79,OTHER,40.4303666,-3.7016677,3.75
+id-161,user-2,Fismuler,"Sagasta, 29",918 27 75 81,OTHER,40.4281715,-3.6975246,3.75
+id-162,user-3,Perrachica,"Eloy Gonzalo ,10",917 37 77 75,OTHER,40.4337393,-3.7031096,3.75
+id-163,user-1,Lady Madonna,"Orellana, 6",915 024 182,OTHER,40.426637,-3.6955608,3.75
+id-164,user-2,Le Petit Prince,"Fernan Gonzalez, 7",914 31 44 14,OTHER,40.4243592,-3.6740323,3.75
+id-165,user-3,Gigi Meet Me Bar,"Luchana, 13",911 37 31 04,FUSION,40.4299973,-3.7009917,3.75
+id-166,user-1,Pajarita,"Apodaca, 20",915 91 73 10,FUSION,40.4273174,-3.6997692,3.75
+id-167,user-2,Forneria Ballaro,"Santa Engracia, 90",915 93 91 33,ITALIAN,40.437811,-3.6998016,3.75
+id-168,user-3,Sushita Cafe (A. Aguilera),"Alberto Aguilera, 52",918 259 127,OTHER,40.4300378,-3.7097524,3.75
+id-169,user-1,Dinamo,"Trafalgar, 7",914 457 977,OTHER,40.4312007,-3.7005577,3.75
+id-170,user-2,Bowlers,"Principe de Vergara, 56",682 20 52 11,FUSION,40.4282213,-3.6798439,3.75
+id-170,user-2,Bowlers,"Principe de Vergara, 56",682 20 52 11,FUSION,40.4282213,-3.6798439,3.75
+id-172,user-1,Chic Sushi,"Caballero de Gracia, 12",910 55 18 01,OTHER,40.4194116,-3.7005624,3.75
+id-173,user-2,La fabrica 21,"Genova, 21",913 19 51 34,OTHER,40.4264259,-3.692963,3.75
+id-174,user-3,Bienmesabe,"General Arrando, 26",913 19 97 68,OTHER,40.4316672,-3.6945074,3.75
+id-175,user-1,Marieta,"Paseo de la Castellana, 44",915 75 75 53,OTHER,40.4338378,-3.6876546,3.75
+id-176,user-2,El Columpio,"Caracas, 10",913 787 512,OTHER,40.2855874,-3.7838887,3.75
+id-177,user-3,El Kiosko,"Ferraz, 9",910 27 61 24,OTHER,40.426109,-3.7174055,3.75
+id-178,user-1,Tanino,"Vallehermoso, 25",914 46 94 43,FUSION,40.4322054,-3.7089634,3.75
+id-179,user-2,La Piamontesa,"Hortaleza, 100",913 083 372,ITALIAN,40.4248553,-3.6978322,3.75
+id-180,user-3,Santa Rita,"Santa Feliciana, 16",912 22 01 31,OTHER,40.4332655,-3.6987629,3.75
+id-181,user-1,Las Tortillas de Gabino,"Rafael Calvo, 20",913 19 75 05,OTHER,40.4338765,-3.6940077,3.75
+id-182,user-2,Casa Mingo,"Paseo de la Florida, 34",915 47 79 18,OTHER,40.4249706,-3.7252545,3.75
+id-183,user-3,Tuk Tuk,"Cardenal Cisneros, 6",917 64 76 94,OTHER,40.4299612,-3.7015581,3.75
+id-184,user-1,Lateral ,"Paseo de la Castellana, 89",915 61 33 37,OTHER,40.4499983,-3.6918852,3.75
+id-185,user-2,Bar Amor,"Manuela Malasana, 22",915 94 48 29,OTHER,40.4288308,-3.7047273,3.75
+id-186,user-3,Bentley's,"Alcala, 105",918 43 76 56,OTHER,40.4217419,-3.6829482,3.75
+id-187,user-1,Food Truck,"San Lucas, 11",911 89 36 96,OTHER,40.4237918,-3.6961862,3.75
+id-188,user-2,Steakburger,"Luchana, 17",Reservas en la web,OTHER,40.4302985,-3.7007009,3.75
+id-189,user-3,La Vaca Picada ,"Diego de Leon, 13",915 63 77 76,OTHER,40.4351629,-3.6839539,3.75
+id-190,user-1,Hamburguesa Nostra,"Glorieta de Bilbao,  7",912 775 893,OTHER,40.428732,-3.7020018,3.75
+id-191,user-2,Strawberry Fields,"Carranza, 11",914 45 25 30,OTHER,40.5902063,-3.9907167,3.75
+id-192,user-3,Cilantro Gastrobar,"General Alvarez de Castro, 7",914 45 55 53,OTHER,40.4346696,-3.7020759,3.75
+id-193,user-1,Casa dei pazzi,"Jose Abascal, 8",910 424 380,ITALIAN,40.4383722,-3.7008771,3.75
+id-194,user-2,Da Giussepina,"Trafalgar, 17",914 45 85 39,ITALIAN,40.4319308,-3.700869,3.75
+id-195,user-3,Sumo,"Fuencarral, 116",910 86 44 97,OTHER,40.4297047,-3.7024654,3.75
+id-196,user-1,Fogon & Candela,"Quintana, 26",915 00 70 33,OTHER,40.4273819,-3.7187593,3.75
+id-197,user-2,Makkila,"Serrano, 110",915 63 34 31,OTHER,40.4352426,-3.6863163,3.75
+id-198,user-3,La Casa de la Tortilla,"Hartzenbusch, 6",914 45 41 76,OTHER,40.430386,-3.7018921,3.75
+id-199,user-1,Taqueria Mi Ciudad,"Conde Duque, 30",910 58 73 56,MEXICAN,40.4278729,-3.7101034, 3.75
+id-200,user-2,Tasty Poke,"San Bernardo, 119",910 85 89 14,OTHER,40.4328878,-3.7047911,3.75
+id-201,user-3,Poke House,"Melendez Valdes, 52",910 85 89 14,OTHER,40.4331369,-3.7149156,3.75
+id-202,user-1,Don Oso,"Melendez Valdes, 55",915 43 69 50,OTHER,40.4330082,-3.7153413,3.75
+id-203,user-2,Pomodoro,"Alberto Aguilera, 12",914 213 784,ITALIAN,40.4299341,-3.7078825,3.75
+id-204,user-3,Rocacho,"Padre Damian, 38",914 21 97 70,OTHER,40.4583062,-3.6853427,3.5
+id-205,user-1,Asia He,"San Francisco de Sales, 27",915 44 87 38,OTHER,40.4419931,-3.7138446,3.75
+id-206,user-2,Tatel,"Paseo de la Castellana, 36-38",911 72 18 41,OTHER,40.4325819,-3.6876196,3.5
+id-207,user-3,Sargo,"General Diaz Porlier, 57",910 106 657,OTHER,40.4304352,-3.6769042,3.5
+id-208,user-1,Fox,"Jose Abascal, 44",913 99 02 53,OTHER,40.4380244,-3.6940565,3.5
+id-209,user-2,La Fragua de Sebin,"Divino Pastor, 21",914 45 95 97,OTHER,40.4275648,-3.7038806,3.75
+id-210,user-3,Cerveceria Chamberi,"Luchana, 36",914 472 973,OTHER,40.4300104,-3.7007307,3.75
+id-211,user-1,Jai Alai,"Balbina Valverde, 2",915 61 27 42,OTHER,40.42526,-3.69063,3.5
+id-212,user-2,La Raquestista,"Doctor Castelo, 19",918 311 842,OTHER,40.4204833,-3.6771318,3.5
+id-213,user-3,Nagoya,"Trafalgar, 7",914 486 907,OTHER,40.4312007,-3.7005577,3.5
+id-214,user-1,MonteCastela,"Ortega y Gasset, 68",914 011 054,OTHER,40.4296984,-3.6745517,3.5
+id-215,user-2,La Vaca Argentina,"Pintor Rosales, 52",915 59 66 05,OTHER,40.4294078,-3.721906,3.5
+id-216,user-3,Triciclo,"Santa Maria, 28",910 24 47 98,OTHER,40.6190715,-3.4596991,3.5
+id-217,user-1,Whitby,"Almagro, 22",913 19 70 88,OTHER,40.478042,-3.7003702,3.5
+id-218,user-2,Â¡Si Senor!,"Paseo de la Castellana, 128",915 640 604,MEXICAN,40.4499619,-3.6901987,3.5
+id-219,user-3,La Pilla,"Almagro, 3",910 81 95 38,OTHER,40.4766878,-3.6960914,3.5
+id-220,user-1,Suchil 15,"Conde del Valle de Suchil, 15",914 34 66 88,OTHER,40.4319639,-3.7074789,3.5
+id-221,user-2,Casa Marco,"Gaztambide, 8",915 43 20 69,ITALIAN,40.4316424,-3.7156142,3.5
+id-222,user-3,Konnichiwa,"Fuencarral, 98",912 30 30 05,OTHER,40.4279202,-3.7018385,3.5
+id-222,user-3,Konnichiwa,"Fuencarral, 98",912 30 30 05,OTHER,40.4279202,-3.7018385,3.5
+id-224,user-2,Le Coco,"Barbieri, 15",915 21 99 55,OTHER,40.4215857,-3.6980068,3.5
+id-225,user-3,La Vaca Voladora,"Sandoval, 18",910 518 679,OTHER,40.4302666,-3.704908,3.5
+id-226,user-1,Boleta Gastrobar,"Sagasta, 12",910 268 530,OTHER,40.4283802,-3.6999651,3.5
+id-227,user-2,Mr. Frank,"Jovellanos, 6",914 204 554,OTHER,40.4169368,-3.6968398,3.5
+id-228,user-3,Dionisos,"Conde Duque, 26",911 73 76 00,OTHER,40.4274733,-3.7103517,3.5
+id-229,user-1,Peggy Sue,"Clara del Rey, 4",914 151 520,OTHER,40.4402713,-3.6731577,3.5
+id-230,user-2,Penalti Lounge Bar,"Fernandez de los Rios, 95",910 341 646,OTHER,40.4354477,-3.7178564,3.5
+id-231,user-3,La Tagliatella,"Avenida Felipe II, 17",917 81 67 06,ITALIAN,40.4242346,-3.6766962,3.5
+id-232,user-1,Del Rio,"Olid, 14",914 45 34 81,OTHER,40.4319189,-3.7017049,3.5
+id-233,user-2,Superchulo Madrid,"Manuela Malasana, 11",647 407 893,VEGETARIAN,40.428529,-3.703306,3.5
+id-234,user-3,NAP Pizza,"Cardenal Cisneros, 38",910 66 53 53,ITALIAN,40.4320459,-3.7021322,3.5
+id-235,user-1,Taqueria Chapultepec,"Cardenal Cisneros, 13",912 92 29 00,MEXICAN,40.8269443,-3.5380395, 3.5
+id-236,user-2,"Waku, tequenos que molan","Infantas, 30",915 23 32 28,OTHER,40.4203351,-3.6985887,3.5
+id-237,user-3,Cherry Pecas,"San Francisco de Sales, 17",645 76 22 00,MEXICAN,40.4409947,-3.7153521,3.5
+id-238,user-1,Bar Casa Paco,"Juan Alvarez Mendizabal, 85",915 43 28 21,OTHER,40.4282414,-3.7180874,3.5
+id-239,user-2,Amazonico,"Jorge Juan, 20",915 15 43 32,OTHER,40.42526,-3.69063,3.25
+id-240,user-3,Fellina,"Caracas, 21",914 10 92 50,ITALIAN,40.4307791,-3.6944733,3.25
+id-241,user-1,Toque de sal,"Ponzano, 46",914 266 465,OTHER,40.4403429,-3.6990634,3.25
+id-242,user-2,Tapanco,"Trafalgar, 10",914 47 90 53,OTHER,40.4310613,-3.7029114,3.25
+id-243,user-3,Celso y Manolo,"Libertad, 1",915 31 80 79,OTHER,40.4251922,-3.6915631,3.25
+id-244,user-1,Grama Lounge,"Fuencarral, 95",916 48 32 67,OTHER,40.4270218,-3.7017956,3.25
+id-245,user-2,De Pura Cepa,"Fuente del Berro, 31",913 092 879,OTHER,40.424977,-3.6636998,3.25
+id-246,user-3,Gato Gato,Marques de Toca,912 08 68 70,OTHER,40.4101795,-3.6961118,3.25
+id-247,user-1,Tony Roma s,"Genova, 17",913 10 14 88,AMERICAN,40.4266773,-3.6934815,3.25
+id-248,user-2,Pecado Carnal,"Covarrubias, 24",914 45 68 86,OTHER,40.4302446,-3.6975155,3.25
+id-249,user-3,Foster s Hollywood,"Princesa, 13",915 59 19 14,OTHER,40.4256939,-3.7130802,3.25
+id-250,user-1,Bo Finn,"Velazquez, 97",914 11 40 79,OTHER,40.4352264,-3.6834724,3.25
+id-251,user-2,Pizza Jardin,"San Francisco de Sales, 25",915 491 053,ITALIAN,40.4417737,-3.7142206,3.25
+id-252,user-3,La Nicoletta,"Paseo de la Castellana, 4",915 77 52 39,ITALIAN,40.4269232,-3.6894651,3.25
+id-253,user-1,La Central de Fuencarral,"Fuencarral, 98",915 32 61 20,OTHER,40.4279202,-3.7018385,3.25
+id-254,user-2,Sagasta 28 Bistro&Gourmet,"Sagasta, 28",910 82 45 07,OTHER,40.428732,-3.7006353,3.25
+id-255,user-3,Taberna la Ardosa,"Colon (CALLE), 13",915 21 49 79,OTHER,40.4237686,-3.7017746,3.25
+id-256,user-1,De patata madre,"Cardenal Cisneros, 1",915 465 133,OTHER,40.4295251,-3.7016046,3.25
+id-257,user-2,Pez Tortilla,"Pez, 36",653 91 99 84,OTHER,40.4242997,-3.7064353,3.25
+id-258,user-3,San Bernardo 115 Gastrobar,"San Bernardo, 115",910 83 65 99,OTHER,40.4326512,-3.7048769,3.25
+id-259,user-1,La Esquina,Estadio Bernabeu (Concha Espina),914 43 06 75,OTHER,40.4530225,-3.687422,3.0
+id-260,user-2,Asador El Molinon,"Paseo de la Florida, 17",915 47 79 36,OTHER,40.4215653,-3.7220629,3.0
+id-261,user-3,Art and sushi,"Carranza, 9",910 398 883,OTHER,40.5902063,-3.9907167,3.0
+id-262,user-1,Casa Mono ,"Tutor, 37",914 52 95 52,OTHER,40.4291976,-3.716649,3.0
+id-263,user-2,Camino,"Gutierrez Solana, 6",914 11 24 01,OTHER,40.4505285,-3.6881337,3.0
+id-264,user-3,El Mentidero de la Villa,"Almagro, 20",913 08 12 85,OTHER,40.4777245,-3.7002779,3.0
+id-265,user-1,Kechua,"Fuentes, 9",911 68 58 61,OTHER,40.4029988,-3.7441641,3.0
+id-266,user-2,Miss Sushi ,"Prado, 2",910 10 08 11,OTHER,41.0348735,-3.629984,3.0
+id-267,user-3,Asador Extremeno,"Avenida de Valladolid, 5",659 51 51 41,OTHER,40.4258717,-3.7271287,3.0
+id-268,user-1,Luos,"Andres Mellado, 5",915 49 52 11,OTHER,40.4347577,-3.7138152,3.0
+id-269,user-2,"Rugantino ""Casa Tua"" ","Velazquez, 136",915 610 222,ITALIAN,40.4383333,-3.682474,3.0
+id-270,user-3,Maruzzella,"Raimundo Fernandez Villaverde, 28",915 347 732,ITALIAN,40.4464414,-3.6956129,3.0
+id-271,user-1,Concepto Bistro,"Calle de las Aguas, 6",917 649 502,OTHER,40.4108219,-3.7121063,3.0
+id-272,user-2,Friday s,"Concha Espina, 3",912 75 99 91,AMERICAN,40.4941619,-3.8699006,3.0
+id-273,user-3,Morao,"Paseo de la Castellana, 95",917 70 78 99,OTHER,40.4516331,-3.6916167,3.0
+id-274,user-1,Vips,"Julian Romea, 4",912 75 21 14,OTHER,40.4427538,-3.7135343,3.0
+id-275,user-2,The House of Beer,"Almansa, 105",915 33 93 93,OTHER,40.4489306,-3.7155223,3.0
+id-276,user-3,Gino s,"Julian Romea, 4",912 75 21 13,ITALIAN,40.4427538,-3.7135343,3.0
+id-277,user-1,Pinocchio,"Eduardo Dato, 5",915 93 99 27,ITALIAN,40.4328894,-3.6957761,3.0
+id-278,user-2,La Mafia,"Goya, 5",918 11 97 26,ITALIAN,40.4608856,-3.680027,3.0
+id-279,user-3,Pasta Pesto,"Guzman El Bueno, 20",915 49 76 60,ITALIAN,40.4324518,-3.7132396,3.0
+id-280,user-1,Pecaditos,"San Francisco de Sales, 24",915 13 87 89,OTHER,40.4408191,-3.7149007,3.0
+id-281,user-2,Tacoos,"Hermosilla,  73",No admite reservas,MEXICAN,40.4261557,-3.6787937,3.0
+id-282,user-3,Keyaan's,"Blasco de Garay, 10",915 993 876,OTHER,40.4309295,-3.7116906,3.0
+id-283,user-1,El Rey de las Tortillas,"Andres Mellado, 16",915 44 02 50,OTHER,40.4320278,-3.7144644,3.0
+id-284,user-2,Panda Wok,"Alberto Aguilera, 36",911 88 71 19,OTHER,40.4303321,-3.7114246,3.0
+id-285,user-3,La Huerta,"Alburquerque, 14",915 93 41 65,OTHER,40.4311104,-3.7009938,2.75
+id-286,user-1,Bar Tomate ,"Fernando ""El Santo"", 26",917 02 38 70,OTHER,40.23232,-3.7657081,2.75
+id-287,user-2,Five Guys,"Gran Via, 44",915 223 514,OTHER,40.4204463,-3.7053963,2.75
+id-288,user-3,Tierra,"Guzman El Bueno, 52",918 70 99 20,MEXICAN,40.4361243,-3.7129305,2.75
+id-289,user-1,Don Giovanni,"Paseo de la Reina Cristina, 23",914 34 83 38,ITALIAN,40.4075464,-3.6802863,2.5
+id-290,user-2,Gracias Padre,"Ortega y Gasset, 55",910 66 00 85,MEXICAN,40.430073,-3.6756298,2.5
+id-291,user-3,Alfredo s,"Lagasca, 5",915 76 62 71,OTHER,40.4213957,-3.685899,2.5
+id-292,user-1,Kung Fu,"Melendez Valdes, 68",915 29 53 33,OTHER,40.4331918,-3.7170079,2.5
+id-293,user-2,Jaleo s,"Galileo, 17",911 10 70 05,MEXICAN,40.2822298,-4.0097326,2.5
+id-294,user-3,Bar Sierra,"Galileo, 41",678 51 24 94,OTHER,40.2822298,-4.0097326,2.5
+id-295,user-1,Bergantinos,"Alberto Aguilera, 46",915 47 46 43,OTHER,40.4304127,-3.7123481,2.5
+id-296,user-2,Kintaro,"Fernandez de la Hoz, 70",913 99 28 88,OTHER,40.4386931,-3.6944126,2.25
+id-297,user-3,Casa Benito,"Santa Engracia, 75",914 483 624,OTHER,40.4353647,-3.6991323,2.0
+id-298,user-1,Ninja Ramen,"Barcelo, 1",914 93 99 93,OTHER,40.3874309,-3.7389124,2.0
+id-299,user-2,Angelita Madrid,"Reina, 4",915 21 66 78,OTHER,40.3706697,-3.6975924,1.75
+id-300,user-3,The Good Burger (TGB),"San Bernardo, 105",902 19 74 94,OTHER,40.4317213,-3.7053566,1.75
+id-301,user-1,El Patio del Fisgon,"Plaza de Chamberi, 2",914 109 445,OTHER,40.4329269,-3.6974298,1.75
+id-302,user-2,Con Amor,"Espronceda, 34",913 95 23 15,OTHER,40.4404069,-3.6945656,1.0
+id-303,user-3,Helma,"Francisco Ricci, 15",646 656 940,OTHER,40.4311226,-3.713041,0.5
+id-304,user-1,Cevichevere,"Maria de Molina, 18",910 86 23 32,FUSION,40.4376633,-3.6868614,0.5
