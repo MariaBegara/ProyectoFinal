@@ -57,6 +57,7 @@ class ReviewIntegrationTest {
                 .andExpect(status().isOk())
                 .andReturn();
         session = login.getResponse().getHeader("Set-Cookie");
+        String sessionId = session.split("=")[1].split(";")[0];
         // Crear restaurante
         String restJson = "{" +
                 "\"name_restaurant\":\"Restaurante Review\"," +
@@ -67,7 +68,8 @@ class ReviewIntegrationTest {
                 "\"longitude\":\"-3.0\"}";
         mockMvc.perform(post("/restaurantes/nuevo")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(restJson))
+                .content(restJson)
+                .cookie(new jakarta.servlet.http.Cookie("session", sessionId)))
                 .andExpect(status().isCreated());
         AppRestaurant rest = restaurantRepository.findAll().get(0);
         restauranteId = rest.getId();
@@ -77,10 +79,12 @@ class ReviewIntegrationTest {
     void crearReview_autenticado_devuelve201() throws Exception {
         ReviewRegister reg = new ReviewRegister("Muy bueno", 5);
         String json = objectMapper.writeValueAsString(reg);
+        String sessionId = session.split("=")[1].split(";")[0];
         mockMvc.perform(post("/review/nuevo")
+                .param("restauranteId", restauranteId)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json)
-                .header("Cookie", session))
+                .cookie(new jakarta.servlet.http.Cookie("session", sessionId)))
                 .andExpect(status().isCreated());
     }
 
@@ -89,14 +93,16 @@ class ReviewIntegrationTest {
         // Crear review primero
         ReviewRegister reg = new ReviewRegister("Excelente", 5);
         String json = objectMapper.writeValueAsString(reg);
+        String sessionId = session.split("=")[1].split(";")[0];
         mockMvc.perform(post("/review/nuevo")
+                .param("restauranteId", restauranteId)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json)
-                .header("Cookie", session))
+                .cookie(new jakarta.servlet.http.Cookie("session", sessionId)))
                 .andExpect(status().isCreated());
         // Listar reviews del usuario
         mockMvc.perform(get("/review/filtrar/usuario")
-                .header("Cookie", session))
+                .cookie(new jakarta.servlet.http.Cookie("session", sessionId)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].content").value("Excelente"));
     }
