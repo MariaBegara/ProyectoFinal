@@ -3,6 +3,7 @@ package com.icai.proyectofinal.model.restaurant;
 import com.icai.proyectofinal.model.Type;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 public record RestaurantRegister (
@@ -13,8 +14,9 @@ public record RestaurantRegister (
     @Pattern(regexp = "^\\d{9}$", message = "El número debe tener 9 dígitos")
     String phone,
 
-    @Enumerated(EnumType.STRING)
-    @NotBlank(message = "Seleccione el tipo de comida de su restaurante")
+    //@Enumerated(EnumType.STRING)
+    //@NotBlank(message = "Seleccione el tipo de comida de su restaurante")
+    @NotNull(message = "Seleccione el tipo de comida de su restaurante")
     Type tipo,
 
     String direction,

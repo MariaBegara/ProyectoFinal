@@ -2,9 +2,11 @@ package com.icai.proyectofinal.service.restaurant;
 
 import com.icai.proyectofinal.entity.AppRestaurant;
 import com.icai.proyectofinal.entity.AppReview;
+import com.icai.proyectofinal.entity.AppUser;
 import com.icai.proyectofinal.model.*;
 import com.icai.proyectofinal.model.restaurant.RestaurantRegister;
 import com.icai.proyectofinal.model.restaurant.RestaurantResponse;
+import com.icai.proyectofinal.model.review.ReviewResponse;
 import com.icai.proyectofinal.repository.RestaurantRepository;
 import com.icai.proyectofinal.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 public class RestaurantService implements RestaurantServiceInterface {
@@ -31,11 +37,11 @@ public class RestaurantService implements RestaurantServiceInterface {
     public void saveRestaurant(AppRestaurant restaurant) {
         restaurantRepository.save(restaurant);
     }
-    //luego añadiremos aquí los filtros para las busquedas
+
 
     @Override
-    public RestaurantResponse saveRestaurant (RestaurantRegister register) {
-
+    public RestaurantResponse saveRestaurant (RestaurantRegister register, AppUser owner) {
+        System.out.println("📥 Petición recibida para crear restaurante");
         AppRestaurant restaurant = new AppRestaurant();
         restaurant.setName_restaurant(register.name_restaurant());
         restaurant.setPhone(register.phone());
@@ -43,6 +49,8 @@ public class RestaurantService implements RestaurantServiceInterface {
         restaurant.setType(register.tipo());
         restaurant.setLatitude(register.latitude());
         restaurant.setLongitude(register.longitude());
+        restaurant.setOwner(owner);
+        restaurant.setScore(0);
         //restaurant.setAvg(avg);
 
 
@@ -61,9 +69,43 @@ public class RestaurantService implements RestaurantServiceInterface {
     }
 
     @Override
+    public RestaurantResponse saveRestaurant(RestaurantRegister register) {
+        return null;
+    }
+
+    @Override
     public List<AppRestaurant> getAllRestaurants() {
         return (List<AppRestaurant>) restaurantRepository.findAll();
     }
+
+
+    @Override
+    public List<RestaurantResponse> getRestaurants(AppUser user) {
+        AppRestaurant restaurant = restaurantRepository.findByOwner(user);
+
+        List<RestaurantResponse> responses = new ArrayList<>();
+
+        responses.forEach(review -> {
+
+            RestaurantResponse response = new RestaurantResponse(
+
+                    restaurant.getId(),
+                    restaurant.getName_restaurant(),
+                    restaurant.getLatitude(),
+                    restaurant.getLongitude(),
+                    restaurant.getDirection(),
+                    restaurant.getPhone(),
+                    restaurant.getType().toString(),
+                    restaurant.getScore()
+            );
+
+            responses.add(response);
+        });
+
+        return responses;
+    }
+
+
 
     @Override
     public List<RestaurantResponse> getRestaurantsFiltered(String type, Double minScore) {

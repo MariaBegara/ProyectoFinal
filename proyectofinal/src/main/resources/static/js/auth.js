@@ -7,9 +7,16 @@ document.getElementById("form-login").addEventListener("submit", async function 
 
   try {
     // Envío de login
-    const response = await fetch("http://localhost:8080/usuario/login?email=" + encodeURIComponent(email) + "&password=" + encodeURIComponent(password), {
+    const response = await fetch("http://localhost:8080/usuario/login", {
       method: "POST",
-      credentials: "include"
+      headers: {
+        "Content-Type": "application/json"
+      },
+      credentials: "include", // Necesario para aceptar la cookie 'session'
+      body: JSON.stringify({
+        email: email,
+        password: password
+      })
     });
 
     if (!response.ok) {
@@ -31,7 +38,7 @@ document.getElementById("form-login").addEventListener("submit", async function 
     const perfil = await perfilResp.json();
     const rol = perfil.role.toLowerCase();
 
-    if (rol === "dueno" || rol === "owner") {
+    if (rol === "owner") {
       window.location.href = "dueno.html";
     } else {
       window.location.href = "cliente.html";

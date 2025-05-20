@@ -12,8 +12,10 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable()) // desactiva CSRF (solo en desarrollo)
+                .headers(headers -> headers.disable())// permite cargar la consola H2 en un iframe
                 .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll() // permite cualquier petición sin autenticación
+                        .requestMatchers("/h2-console/**").permitAll() // permite la consola H2
+                        .anyRequest().permitAll() // permite el resto
                 );
 
         return http.build();

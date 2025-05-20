@@ -9,6 +9,21 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
     cargarRestaurantes();
   });
+
+  const user = JSON.parse(localStorage.getItem("user"));
+  const userRole = user?.role;
+
+  if (userRole === "OWNER") {
+    const contenedor = document.getElementById("contenedor-boton");
+
+    const boton = document.createElement("button");
+    boton.textContent = "Añadir Restaurante";
+    boton.onclick = () => {
+      window.location.href = "dueno.html";
+    };
+
+    contenedor.appendChild(boton);
+  }
 });
 
 function initMap() { //funcion para inicializar el mapa
@@ -23,18 +38,26 @@ async function cargarRestaurantes() {
   const tipo = document.getElementById("tipo").value;
   const minScore = document.getElementById("minScore").value;
   const lista = document.getElementById("lista-restaurantes");
+
+  // Limpiar lista
   lista.innerHTML = "";
 
-  let url = "http://localhost:8080/restaurantes/mostrarlista";
+  // Mandar petición de restaurantes filtrados si se ha aplicado alguno de los filtros
+  let url = "http://localhost:8080/restaurantes/mostrar/todos";
   if (tipo || minScore) {
     const params = new URLSearchParams();
     if (tipo) params.append("tipo", tipo);
     if (minScore) params.append("minScore", minScore);
-    url = "http://localhost:8080/restaurantes/filtrar?" + params.toString();
+    //url = "http://localhost:8080/restaurantes/filtrar?" + params.toString();
+    url = `http://localhost:8080/restaurantes/filtrar?${params.toString()}`;
   }
 
   try {
     const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Error HTTP: ${response.status}`);
+    }
+
     const restaurantes = await response.json();
 
     limpiarMarcadores();

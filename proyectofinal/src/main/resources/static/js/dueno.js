@@ -23,7 +23,7 @@ async function cargarUsuarioYRestaurantes() {
     console.log("Usuario autenticado:", usuario);
 
     // Cargar los restaurantes del dueño
-    const restaurantesResp = await fetch("http://localhost:8080/restaurantes/mis-restaurantes", {
+    const restaurantesResp = await fetch("http://localhost:8080/restaurantes/yo", {
       method: "GET",
       credentials: "include"
     });
@@ -47,34 +47,48 @@ async function cargarUsuarioYRestaurantes() {
     console.error("Error cargando perfil o restaurantes del dueño:", err);
   }
 }
-
 async function subirRestaurante() {
-  const nombre_res = document.getElementById("nombre_restaurante").value;
-  const dir = document.getElementById("direccion").value;
-  const movil = document.getElementById("movil").value;
+  console.log("🚀 Enviando restaurante al backend:", modelo);
+  const name_restaurant = document.getElementById("nombre_restaurante").value;
+  const direction = document.getElementById("direccion").value;
+  const phone = document.getElementById("movil").value;
   const tipo = document.getElementById("type").value;
-  const lat = document.getElementById("latitud").value;
-  const long = document.getElementById("longitud").value;
+  const latitude = parseFloat(document.getElementById("latitud").value);
+  const longitude = parseFloat(document.getElementById("longitud").value);
   const mensaje = document.getElementById("mensaje-envio");
 
+  // Validación básica antes de enviar
+  if (!name_restaurant || !direction || !phone || !tipo || isNaN(latitude) || isNaN(longitude)) {
+    mensaje.textContent = "Por favor, rellena todos los campos correctamente.";
+    return;
+  }
+  if (!Object.values(TypeEnum).includes(tipo)) {
+    mensaje.textContent = "Tipo inválido.";
+    return;
+  }
+
+
   const modelo = {
-    nombre_res,
-    dir,
-    movil,
+    name_restaurant,
+    direction,
+    phone,
     tipo,
-    lat,
-    long
+    latitude,
+    longitude
   };
 
+  console.log("🚀 Enviando restaurante al backend:", modelo);
+
   try {
-    const response = await fetch("/restaurantes/nuevo", {
+    const response = await fetch("http://localhost:8080/restaurantes/nuevo", {
+
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
       body: JSON.stringify(modelo)
     });
 
-    if (response.ok) {
+    if (response.status === 201  || response.ok) {
       mensaje.textContent = "Restaurante subido correctamente.";
       document.getElementById("form-restaurante").reset();
       cargarUsuarioYRestaurantes();
@@ -83,7 +97,7 @@ async function subirRestaurante() {
       mensaje.textContent = "Error al subir el restaurante: " + error;
     }
   } catch (err) {
-    console.error("Error enviando el  restaurante:", err);
+    console.error("Error enviando el restaurante:", err);
     mensaje.textContent = "Error al conectar con el servidor.";
   }
 }

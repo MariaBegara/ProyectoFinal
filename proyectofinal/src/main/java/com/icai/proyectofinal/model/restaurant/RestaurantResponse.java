@@ -1,5 +1,7 @@
 package com.icai.proyectofinal.model.restaurant;
 
+import com.icai.proyectofinal.model.Type;
+
 public record RestaurantResponse(
         String id,
         String name_restaurant,

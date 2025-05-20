@@ -14,6 +14,13 @@ document.getElementById("form-registro").addEventListener("submit", async functi
     return;
   }
 
+  const passwordRegex = /^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z]).{8,}$/;
+  if (!passwordRegex.test(password1)) {
+    mensajeError.textContent = "La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número.";
+    return;
+  }
+
+
   const model = {
     name_user,
     email,
