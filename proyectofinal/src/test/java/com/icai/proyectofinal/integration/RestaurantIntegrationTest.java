@@ -123,4 +123,12 @@ class RestaurantIntegrationTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
     }
+
+    @Test
+    void mostrarTodosRestaurantes_devuelveLista() throws Exception {
+        mockMvc.perform(get("/restaurantes/mostrar/todos")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].name_restaurant").value("Restaurante Test"));
+    }
 }

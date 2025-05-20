@@ -116,5 +116,55 @@ class ReviewIntegrationTest {
                 .content(json))
                 .andExpect(status().isUnauthorized());
     }
-}
 
+    @Test
+    void actualizarReview_putDevuelve200() throws Exception {
+        // Crear review
+        ReviewRegister reg = new ReviewRegister("Original", 4);
+        String json = objectMapper.writeValueAsString(reg);
+        String sessionId = session.split("=")[1].split(";")[0];
+        var result = mockMvc.perform(post("/review/nuevo")
+                .param("restauranteId", restauranteId)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json)
+                .cookie(new jakarta.servlet.http.Cookie("session", sessionId)))
+                .andExpect(status().isCreated())
+                .andReturn();
+        // Obtener el id de la review creada
+        String responseBody = result.getResponse().getContentAsString();
+        String reviewId = objectMapper.readTree(responseBody).get("id").asText();
+        // Actualizar review
+        String updateJson = "{" +
+                "\"reviewId\":\"" + reviewId + "\"," +
+                "\"content\":\"Actualizado\"," +
+                "\"score\":5}";
+        mockMvc.perform(put("/review/filtrar/usuario")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(updateJson))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.content").value("Actualizado"))
+                .andExpect(jsonPath("$.score").value(5));
+    }
+
+    @Test
+    void listarReviewsRestaurante_getDevuelveLista() throws Exception {
+        // Crear review
+        ReviewRegister reg = new ReviewRegister("Para restaurante", 4);
+        String json = objectMapper.writeValueAsString(reg);
+        String sessionId = session.split("=")[1].split(";")[0];
+        mockMvc.perform(post("/review/nuevo")
+                .param("restauranteId", restauranteId)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json)
+                .cookie(new jakarta.servlet.http.Cookie("session", sessionId)))
+                .andExpect(status().isCreated());
+        // Consultar reviews del restaurante
+        String restJson = "{" +
+                "\"id\":\"" + restauranteId + "\"}";
+        mockMvc.perform(get("/review/filtrar/restaurante")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(restJson))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].content").value("Para restaurante"));
+    }
+}

@@ -131,4 +131,38 @@ class UserIntegrationTest {
         mockMvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get("/usuario/yo"))
                 .andExpect(status().isUnauthorized());
     }
+
+    @Test
+    void logoutUsuario_invalidaSesion() throws Exception {
+        RegisterRequest req = new RegisterRequest(
+                "usuario4",
+                "usuario4@test.com",
+                "Password1",
+                "Password1",
+                "Nombre Real",
+                "USER"
+        );
+        // Registro
+        mockMvc.perform(post("/usuario/nuevo")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(req)))
+                .andExpect(status().isCreated());
+        // Login y obtener sesión
+        var login = mockMvc.perform(post("/usuario/login")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("email", "usuario4@test.com")
+                .param("password", "Password1"))
+                .andExpect(status().isOk())
+                .andReturn();
+        var session = login.getResponse().getHeader("Set-Cookie");
+        String sessionId = session.split("=")[1].split(";")[0];
+        // Logout
+        mockMvc.perform(post("/usuario/logout")
+                .cookie(new Cookie("session", sessionId)))
+                .andExpect(status().isNoContent());
+        // Intentar acceder al perfil después del logout debe devolver 401
+        mockMvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get("/usuario/yo")
+                .cookie(new Cookie("session", sessionId)))
+                .andExpect(status().isUnauthorized());
+    }
 }
