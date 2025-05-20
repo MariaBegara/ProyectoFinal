@@ -46,6 +46,9 @@ public class AppUser {
     public void setId(String id) {
         this.id = id;
     }
+    public String getId() {
+        return id;
+    }
     public String getName_user() {
         return name_user;
     }
